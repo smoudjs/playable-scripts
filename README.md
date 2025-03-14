@@ -294,7 +294,11 @@ const finalOptions = mergeOptions(options, newOptions);
 ### Webpack Configuration
 
 ```javascript
-const { makeWebpackDevConfig, makeWebpackBuildConfig, webpackCommonConfig } = require('@smoud/playable-scripts');
+const { 
+  makeWebpackDevConfig,
+  makeWebpackBuildConfig,
+  webpackCommonConfig
+} = require('@smoud/playable-scripts');
 const { merge } = require('webpack-merge');
 
 // Create development configuration
@@ -344,7 +348,11 @@ runBuild();
 The package includes several webpack plugins for ad network integration:
 
 ```javascript
-const { DAPIInjectorPlugin, ExitAPIInjectorPlugin, DebuggerInjectionPlugin } = require('@smoud/playable-scripts');
+const { 
+  DAPIInjectorPlugin, 
+  ExitAPIInjectorPlugin, 
+  DebuggerInjectionPlugin 
+} = require('@smoud/playable-scripts');
 
 // DAPI integration
 new DAPIInjectorPlugin();

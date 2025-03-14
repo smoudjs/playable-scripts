@@ -1,6 +1,6 @@
 {
   "name": "@smoud/playable-scripts",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
   "main": "core/index.js",
   "exports": {
@@ -20,7 +20,7 @@
     "defines.d.ts"
   ],
   "scripts": {
-    "publish": "npm publish --access public"
+    "deploy": "npm publish --access public"
   },
   "author": "Smoud",
   "license": "MIT",

@@ -45,12 +45,12 @@ async function mapDeep(obj, key, callback) {
 async function gltfLoader(content) {
   // Destructure loader options and set default values:
   const {
-    inline = true,
-    useRelativePaths = true,
-    uriResolver = (module) => String(module.default ?? module),
-    fileName = '[name].[hash:8].[ext]',
-    filePath = '/static/media',
-    publicPath = this._compilation?.outputOptions.publicPath ?? '/',
+    // inline = true,
+    // useRelativePaths = true,
+    // uriResolver = (module) => String(module.default ?? module),
+    // fileName = '[name].[hash:8].[ext]',
+    // filePath = '/static/media',
+    // publicPath = this._compilation?.outputOptions.publicPath ?? '/',
     context = this.context
   } = this.getOptions();
 
