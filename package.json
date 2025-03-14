@@ -1,8 +1,9 @@
 {
   "name": "@smoud/playable-scripts",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
   "main": "core/index.js",
+  "types": "core/index.d.ts",
   "exports": {
     "require": "./core/index.js"
   },
@@ -33,6 +34,7 @@
     "esbuild-loader": "^4.2.2",
     "html-inline-script-webpack-plugin": "^3.2.1",
     "html-webpack-plugin": "^5.6.0",
+    "prettyjson": "^1.2.5",
     "style-loader": "^4.0.0",
     "terser-webpack-plugin": "^5.3.10",
     "tsconfig-paths-webpack-plugin": "^4.2.0",

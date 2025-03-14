@@ -2,49 +2,7 @@ const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks } = require('./u
 const path = require('path');
 const fs = require('fs');
 
-/**
- * @typedef {Object} CLIOptions
- * @property {string} outDir - Output directory for build files (default: 'dist')
- * @property {string} config - Path to build.json configuration file (default: 'build.json')
- * @property {string} tsConfig - Path to tsconfig.json configuration file (default: 'tsconfig.json')
- * @property {string} jsConfig - Path to jsconfig.json configuration file (default: 'jsconfig.json')
- * @property {number} port - Development server port number (default: 3000)
- * @property {boolean} open - Whether to open browser automatically (default: false)
- * @property {('none'|'mraid'|'dapi')} protocol - Ad protocol to use (default: 'none')
- * @property {string} network - Ad network identifier (default: 'preview')
- * @property {boolean} dev - Development mode flag
- * @property {string} [debugger] - URL of debugger script to inject
- */
-
-/**
- * @typedef {Object} BuildOptions
- * @property {string} filename - Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network}
- * @property {string} app - Application name used in build output
- * @property {string} name - Concept name used in build output
- * @property {string} version - Build version number
- * @property {string} language - Language code for localization
- * @property {string} google_play_url - Google Play Store URL for the app
- * @property {string} app_store_url - App Store URL for the app
- */
-
-/**
- * @typedef {Object} DefinesOptions
- * @property {string} __DEV__ - Development mode flag for conditional code
- * @property {string} GOOGLE_PLAY_URL - Google Play Store URL constant
- * @property {string} APP_STORE_URL - App Store URL constant
- * @property {string} AD_NETWORK - Current advertising network identifier
- * @property {string} AD_PROTOCOL - Current advertising protocol
- * @property {string} BUILD_APP - Application name constant
- * @property {string} BUILD_NAME - Build name constant
- * @property {string} BUILD_VERSION - Build version constant
- * @property {string} BUILD_HASH - Unique build identifier generated from timestamp
- * @property {string} LANGUAGE - Current language code
- */
-
-/**
- * Configuration options parsed from CLI arguments and build.json
- * @type {CLIOptions & {build: BuildOptions, defines: DefinesOptions}}
- */
+/** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions([
   {
     name: 'out-dir',

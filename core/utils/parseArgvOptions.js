@@ -1,3 +1,5 @@
+var prettyjson = require('prettyjson');
+
 /** @type {string[]} List of supported advertising networks */
 const allowedAdNetworks = [
   'preview',
@@ -26,14 +28,8 @@ const mraidPartners = ['ironsource', 'applovin', 'unity', 'appreciate', 'chartbo
 
 /**
  * Parses command line arguments based on provided options configuration
- * @param {Array<{
- *   name: string,
- *   alias?: string,
- *   hasValue?: boolean,
- *   defaultValue?: any,
- *   parser?: (value: string) => any
- * }>} posiibleOptions - Array of possible options to parse
- * @returns {Object} Parsed options object with values from command line arguments
+ * @param {import('../index').CLIOptionConfig[]} posiibleOptions - Array of possible options to parse
+ * @returns {Record<string, any>} Parsed options object with values from command line arguments
  */
 exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
   const argvOptions = {};
@@ -68,7 +64,7 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
     argvOptions['protocol'] = 'mraid';
   }
 
-  console.log(argvOptions);
+  console.log(prettyjson.render(argvOptions, {}, 2));
 
   return argvOptions;
 };

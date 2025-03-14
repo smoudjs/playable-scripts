@@ -10,8 +10,8 @@ const { mergeOptions } = require('./utils/mergeOptions.js');
 
 /**
  * Creates webpack configuration for development
- * @param {Object} [customOptions] - Custom options to merge with default options
- * @param {Object} [customDefines] - Additional defines for webpack.DefinePlugin
+ * @param {Partial<import('./index').CLIOptions>} [customOptions] - Custom options to merge with default options
+ * @param {Record<string, any>} [customDefines] - Additional defines for webpack.DefinePlugin
  * @param {import('webpack').Configuration} [webpackCustomConfig] - Custom webpack config to merge
  * @returns {import('webpack').Configuration} Final webpack development configuration
  */
@@ -61,9 +61,12 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
 /**
  * Starts webpack development server
  * @param {import('webpack').Configuration} [webpackConfig] - Webpack configuration to use, creates default if not provided
+ * @param {Partial<import('./index').CLIOptions>} [customOptions] - Custom options to merge with default options
+ * @param {Record<string, any>} [customDefines] - Additional defines for webpack.DefinePlugin
+ * @param {import('webpack').Configuration} [webpackCustomConfig] - Custom webpack config to merge
  */
-function runDev(webpackConfig) {
-  if (!webpackConfig) webpackConfig = makeWebpackDevConfig();
+function runDev(webpackConfig, customOptions, customDefines, webpackCustomConfig) {
+  if (!webpackConfig) webpackConfig = makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig);
 
   const compiler = webpack(webpackConfig);
   const server = new WebpackDevServer(webpackConfig.devServer, compiler);

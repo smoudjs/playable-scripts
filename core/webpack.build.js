@@ -36,8 +36,8 @@ const adNetworkFileNameMap = {
 
 /**
  * Creates webpack configuration for production build
- * @param {Object} [customOptions] - Custom options to merge with default options
- * @param {Object} [customDefines] - Additional defines for webpack.DefinePlugin
+ * @param {Partial<import('./index').CLIOptions>} [customOptions] - Custom options to merge with default options
+ * @param {Record<string, any>} [customDefines] - Additional defines for webpack.DefinePlugin
  * @param {import('webpack').Configuration} [webpackCustomConfig] - Custom webpack config to merge
  * @returns {import('webpack').Configuration} Final webpack production configuration
  */
@@ -140,9 +140,12 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 /**
  * Runs webpack production build
  * @param {import('webpack').Configuration} [webpackConfig] - Webpack configuration to use, creates default if not provided
+ * @param {Partial<import('./index').CLIOptions>} [customOptions] - Custom options to merge with default options
+ * @param {Record<string, any>} [customDefines] - Additional defines for webpack.DefinePlugin
+ * @param {import('webpack').Configuration} [webpackCustomConfig] - Custom webpack config to merge
  */
-function runBuild(webpackConfig) {
-  if (!webpackConfig) webpackConfig = makeWebpackBuildConfig();
+function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConfig) {
+  if (!webpackConfig) webpackConfig = makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfig);
 
   const compiler = webpack(webpackConfig);
   compiler.run((err, stats) => {
