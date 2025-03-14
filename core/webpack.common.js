@@ -4,7 +4,13 @@ const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin');
 const { options } = require('./options');
 
 const tsConfigPath = path.resolve(options.tsConfig);
-const isTsProject = fs.existsSync(tsConfigPath);
+const jsConfigPath = path.resolve(options.jsConfig);
+let jsTsConfigPath = null;
+if (fs.existsSync(tsConfigPath)) {
+  jsTsConfigPath = tsConfigPath;
+} else if (fs.existsSync(jsConfigPath)) {
+  jsTsConfigPath = jsConfigPath;
+}
 
 /** @type {string[]} List of file extensions that webpack will resolve */
 const allowedExtensions = ['.ts', '.tsx', '.js', '.json', '.png', '.glb', '.jpg', '.mp3', '.svg', '.css', '.gif', '.mp4'];
@@ -17,10 +23,10 @@ const webpackConfig = {
     alias: {
       assets: path.resolve('assets')
     },
-    plugins: isTsProject
+    plugins: jsTsConfigPath
       ? [
           new TsconfigPathsPlugin({
-            configFile: tsConfigPath,
+            configFile: jsTsConfigPath,
             extensions: allowedExtensions
           })
         ]

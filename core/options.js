@@ -7,6 +7,7 @@ const fs = require('fs');
  * @property {string} outDir - Output directory for build files (default: 'dist')
  * @property {string} config - Path to build.json configuration file (default: 'build.json')
  * @property {string} tsConfig - Path to tsconfig.json configuration file (default: 'tsconfig.json')
+ * @property {string} jsConfig - Path to jsconfig.json configuration file (default: 'jsconfig.json')
  * @property {number} port - Development server port number (default: 3000)
  * @property {boolean} open - Whether to open browser automatically (default: false)
  * @property {('none'|'mraid'|'dapi')} protocol - Ad protocol to use (default: 'none')
@@ -64,6 +65,13 @@ const options = parseArgvOptions([
     defaultValue: 'tsconfig.json',
     hasValue: true,
     description: 'For TypeScript projects, path to tsconfig.json file'
+  },
+  {
+    name: 'js-config',
+    alias: 'jsConfig',
+    defaultValue: 'jsconfig.json',
+    hasValue: true,
+    description: 'For JavaScript projects, path to jsconfig.json file'
   },
   {
     name: 'port',

@@ -156,9 +156,9 @@ function runBuild(webpackConfig) {
 
     if (stats.hasErrors()) {
       console.log(stats);
-      console.error(`Build [${adNetwork}] finished with errors.`);
+      console.error(`Build finished with errors.`);
     } else {
-      console.log(`Build [${adNetwork}] successful!`);
+      console.log(`Build successful!`);
     }
   });
 }
