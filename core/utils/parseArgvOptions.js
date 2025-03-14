@@ -62,7 +62,7 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
       argvOptions['network'] = adNetwork;
     }
     if (posiibleOptions.find((e) => e.name === 'protocol')) {
-      if (mraidPartners.includes(argvOptions['network']) && argvOptions['protocol'] !== 'none') {
+      if (mraidPartners.includes(argvOptions['network']) && argvOptions['protocol'] === 'none') {
         argvOptions['protocol'] = 'mraid';
       }
     }
