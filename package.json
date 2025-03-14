@@ -1,0 +1,88 @@
+{
+  "name": "@smoud/playable-scripts",
+  "version": "1.0.0",
+  "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
+  "main": "core/index.js",
+  "exports": {
+    "require": "./core/index.js"
+  },
+  "bin": {
+    "playable-scripts": "./cli/bin/playable-scripts.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/smoudjs/playable-scripts.git"
+  },
+  "files": [
+    "cli",
+    "core",
+    "README.md",
+    "defines.d.ts"
+  ],
+  "scripts": {
+    "publish": "npm publish --access public"
+  },
+  "author": "Smoud",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/core": "^7.26.0",
+    "@babel/preset-env": "^7.26.0",
+    "babel-loader": "^9.2.1",
+    "cross-spawn": "^7.0.3",
+    "css-loader": "^7.1.2",
+    "esbuild-loader": "^4.2.2",
+    "html-inline-script-webpack-plugin": "^3.2.1",
+    "html-webpack-plugin": "^5.6.0",
+    "style-loader": "^4.0.0",
+    "terser-webpack-plugin": "^5.3.10",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "webpack": "^5.91.0",
+    "webpack-dev-server": "^5.1.0",
+    "webpack-merge": "^5.10.0",
+    "zip-webpack-plugin": "^4.0.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "bugs": {
+    "mail": "peter.hutsul@gmail.com",
+    "url": "https://github.com/smoudjs/playable-scripts/issues"
+  },
+  "homepage": "https://github.com/smoudjs/playable-scripts",
+  "keywords": [
+    "playable",
+    "scripts",
+    "builder",
+    "playable-ads",
+    "html5-ads",
+    "ad-network",
+    "ad-builder",
+    "automation",
+    "interactive-ads",
+    "ad-optimization",
+    "ad-script",
+    "minified-ads",
+    "mraid",
+    "vungle",
+    "applovin",
+    "google-ads",
+    "meta-ads",
+    "unity-ads",
+    "ironsource",
+    "chartboost",
+    "mintegral",
+    "adcolony",
+    "tapjoy",
+    "snapchat-ads",
+    "tiktok-ads",
+    "pangle",
+    "moloco",
+    "liftoff",
+    "mytarget",
+    "javascript",
+    "typescript",
+    "webpack",
+    "cli-tool",
+    "build-tool"
+  ]
+}
