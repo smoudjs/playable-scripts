@@ -5,6 +5,12 @@ const fs = require('fs');
 /** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions([
   {
+    name: 'mode',
+    defaultValue: process.env.NODE_ENV,
+    hasValue: true,
+    description: 'Just output current NODE_ENV mode'
+  },
+  {
     name: 'out-dir',
     alias: 'outDir',
     defaultValue: 'dist',

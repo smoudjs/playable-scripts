@@ -67,6 +67,8 @@ export interface DefinesOptions {
 
 /** CLI configuration options */
 export interface CLIOptions {
+  /** Just for output current NODE_ENV mode */
+  mode?: string;
   /** Output directory for build files (default: 'dist') */
   outDir: string;
   /** Path to build.json configuration file (default: 'build.json') */

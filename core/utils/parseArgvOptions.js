@@ -41,7 +41,6 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
 
   let adNetwork = null;
 
-  console.log(process.env.NODE_ENV);
   for (let i = 2; i < process.argv.length; i++) {
     let key = process.argv[i];
 
