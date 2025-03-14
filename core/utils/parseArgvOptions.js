@@ -41,6 +41,7 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
 
   let adNetwork = null;
 
+  console.log(process.env.NODE_ENV);
   for (let i = 2; i < process.argv.length; i++) {
     let key = process.argv[i];
 
@@ -57,14 +58,22 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
     } else if (!adNetwork) adNetwork = key;
   }
 
-  if (adNetwork && allowedAdNetworks.includes(adNetwork)) {
-    argvOptions['network'] = adNetwork;
-  }
-  if (mraidPartners.includes(argvOptions['network']) && argvOptions['protocol'] !== 'none') {
-    argvOptions['protocol'] = 'mraid';
+  if (posiibleOptions.find((e) => e.name === 'network')) {
+    if (adNetwork && allowedAdNetworks.includes(adNetwork)) {
+      argvOptions['network'] = adNetwork;
+    }
+    if (posiibleOptions.find((e) => e.name === 'protocol')) {
+      if (mraidPartners.includes(argvOptions['network']) && argvOptions['protocol'] !== 'none') {
+        argvOptions['protocol'] = 'mraid';
+      }
+    }
   }
 
-  console.log(prettyjson.render(argvOptions, {}, 2));
+  let output = argvOptions;
+  if (process.env.NODE_ENV === 'production') output = { ...argvOptions, port: undefined, open: undefined };
+  else if (process.env.NODE_ENV === 'development') output = { ...argvOptions, outDir: undefined };
+
+  console.log(prettyjson.render(output, {}, 2));
 
   return argvOptions;
 };
