@@ -74,6 +74,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     filename = filename.replaceAll('{network}', networkName);
     filename = filename.replaceAll('{hash}', '[hash]');
 
+    if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_');
     return filename;
   }
 

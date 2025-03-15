@@ -127,19 +127,19 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 
 ## CLI Arguments
 
-| Option                    | Description                              | Default         | Example                       |
-| ------------------------- | ---------------------------------------- | --------------- | ----------------------------- |
-| **Ad Network**            | Target ad network                        | `preview`       | `applovin`                    |
-| `--out-dir`               | Output directory for build files         | `dist`          | `--out-dir build`             |
-| `--build-config`                | Path to build.json configuration file    | `build.json`    | `--build-config custom.json`        |
+| Option                    | Description                              | Default         | Example                          |
+| ------------------------- | ---------------------------------------- | --------------- | -------------------------------- |
+| **Ad Network**            | Target ad network                        | `preview`       | `applovin`                       |
+| `--out-dir`               | Output directory for build files         | `dist`          | `--out-dir build`                |
+| `--build-config`          | Path to build.json configuration file    | `build.json`    | `--build-config custom.json`     |
 | `--ts-config`             | Path to tsconfig.json configuration file | `tsconfig.json` | `--ts-config tsconfig.prod.json` |
 | `--js-config`             | Path to jsconfig.json configuration file | `jsconfig.json` | `--js-config jsconfig.prod.json` |
-| `--protocol`              | Ad protocol to use                       | `none`          | `--protocol mraid`            |
-| `--port`                  | Development server port number           | `3000`          | `--port 8080`                 |
-| `--open`                  | Open browser automatically               | `false`         | `--open`                      |
-| `--dev`                   | Enable development mode                  | `true`          | `--dev false`                 |
-| `--skip-recommended-meta` | Skip recommended meta tags injection     | -               | `--skip-recommended-meta`     |
-| `--debugger`              | URL of debugger script to inject         | -               | `--debugger http://...`       |
+| `--protocol`              | Ad protocol to use                       | `none`          | `--protocol mraid`               |
+| `--port`                  | Development server port number           | `3000`          | `--port 8080`                    |
+| `--open`                  | Open browser automatically               | `false`         | `--open`                         |
+| `--dev`                   | Enable development mode                  | `true`          | `--dev false`                    |
+| `--skip-recommended-meta` | Skip recommended meta tags injection     | -               | `--skip-recommended-meta`        |
+| `--debugger`              | URL of debugger script to inject         | -               | `--debugger http://...`          |
 
 #### Target Ad Network
 
@@ -177,6 +177,52 @@ playable-scripts build unity
 - `dapi` - Display Advertising Programming Interface
 
 Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, and AdColony networks.
+
+## Build Configuration (build.json)
+
+The `build.json` file allows you to customize build options. Here's the format:
+
+```json
+{
+  "filename": "{app}_{name}_{version}_{date}_{language}_{network}",
+  "app": "AppName",
+  "name": "ConceptName",
+  "version": "1",
+  "language": "EN",
+  "google_play_url": "https://play.google.com/store/games",
+  "app_store_url": "https://www.apple.com/app-store/"
+}
+```
+
+All fields are optional and will use the default values shown above if not specified.
+
+The filename template supports the following variables:
+
+- `{app}` - Application name
+- `{name}` - Concept name
+- `{version}` - Build version
+- `{date}` - Current date
+- `{language}` - Language code
+- `{network}` - Target ad network
+- `{hash}` - Unique build identifier
+
+## Meta Tags
+
+`@smoud/playable-scripts` automatically manages viewport meta tags for optimal display across devices.
+
+**Do not specify your own `viewport` meta tag** as it will be handled and injected into your HTML automatically:
+
+- `<meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0,user-scalable=no">`
+
+> For Mintegral network, a special viewport configuration is used:
+> `<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">`
+
+Additionally, unless `--skip-recommended-meta` is provided, the following recommended meta tags are automatically injected:
+- `<meta name="HandheldFriendly" content="True">`
+- `<meta name="cleartype" http-equiv="cleartype" content="on">`
+- `<meta name="apple-mobile-web-app-capable" content="yes">`S
+- `<meta name="mobile-web-app-capable" content="yes">`
+- `<meta http-equiv="X-UA-Compatible" content="IE=10">`
 
 ## Examples
 
