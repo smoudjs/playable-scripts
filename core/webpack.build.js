@@ -6,12 +6,13 @@ const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
 const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
+const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
+const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.js');
 const ZipPlugin = require('zip-webpack-plugin');
 const { getCurrentDateFormatted } = require('./utils/date');
 const path = require('path');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
-const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
 
 /** @type {Record<string, string>} Mapping of ad network identifiers to their display names in filenames */
 const adNetworkFileNameMap = {
@@ -34,6 +35,9 @@ const adNetworkFileNameMap = {
   mytarget: 'MYTARGET',
   liftoff: 'LIFTOFF'
 };
+
+/** @type {AD_NETWORK[]} */
+const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'facebook', 'mintegral'];
 
 /**
  * Creates webpack configuration for production build
@@ -72,6 +76,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     return filename;
   }
 
+  const htmlFileName = '';
+  if (adNetwork === 'mintegral') htmlFileName = `${build.name}.html`;
+  else if (zipOutputNetworks.includes(adNetwork)) htmlFileName = 'index.html';
+  else htmlFileName = `${getFileName()}.html`;
+
   const webpackConfig = merge(
     webpackCommonConfig,
     {
@@ -100,8 +109,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve('src/index.html'),
-          filename: ['google', 'pangle', 'tiktok'].includes(adNetwork) ? './index.html' : `${getFileName()}.html`,
-          title: `${build.name}-${build.app}`,
+          filename: htmlFileName,
+          title: `${build.name} - ${build.app}`,
           inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$'
         }),
 
@@ -125,23 +134,13 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
   }
 
-  if (adNetwork === 'google') {
-    webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
-
-    webpackConfig.plugins.push(
-      new ZipPlugin({
-        filename: `${getFileName()}.zip`,
-        path: path.resolve(buildOptions['outDir'])
-      })
-    );
-
-    webpackConfig.output = {
-      filename: 'build.js',
-      path: path.resolve(buildOptions['outDir'], adNetwork)
-    };
-  } else if (adNetwork === 'pangle' || adNetwork === 'tiktok') {
-    if (adNetwork === 'pangle') {
+  if (zipOutputNetworks.includes(adNetwork)) {
+    if (adNetwork === 'google') {
+      webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
+    } else if (adNetwork === 'pangle') {
       webpackConfig.plugins.push(new PangleInjectorPlugin());
+    } else if (adNetwork === 'mintegral') {
+      webpackConfig.plugins.push(new MintegralInjectorPlugin());
     }
 
     webpackConfig.plugins.push(

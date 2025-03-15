@@ -19,10 +19,11 @@ const allowedAdNetworks = [
   'mytarget',
   'liftoff'
 ];
-/** @type {string[]} List of supported advertising protocols */
+/** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
-/** @type {string[]} List of advertising partners that support MRAID protocol */
-const mraidPartners = ['ironsource', 'applovin', 'unity', 'appreciate', 'chartboost', 'mytarget', 'liftoff', 'adcolony'];
+
+/** @type {AD_NETWORK[]} List of advertising partners that support MRAID protocol */
+const mraidPartners = ['ironsource', 'applovin', 'unity', 'appreciate', 'snapchat', 'chartboost', 'mytarget', 'liftoff', 'adcolony'];
 
 /**
  * Parses command line arguments based on provided options configuration

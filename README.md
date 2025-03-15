@@ -173,7 +173,7 @@ playable-scripts build unity
 - `vungle` (VUNGLE) - Vungle
 - `tapjoy` (TAPJOY) - Tapjoy
 - `snapchat` (SNAPCHAT) - Snapchat
-- `tiktok` (TIKTOK) - TikTok
+- `tiktok` (TIKTOK) - TikTok / Toutiao
 - `appreciate` (APPRECIATE) - Appreciate
 - `chartboost` (CHARTBOOST) - Chartboost
 - `pangle` (PANGLE) - Pangle
@@ -186,7 +186,7 @@ playable-scripts build unity
 - `mraid` - Mobile Rich Media Ad Interface Definitions
 - `dapi` - Display Advertising Programming Interface
 
-Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Chartboost, MyTarget, Liftoff, and AdColony networks.
+Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, and AdColony networks.
 
 ## Examples
 
