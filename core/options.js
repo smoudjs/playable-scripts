@@ -19,7 +19,8 @@ const options = parseArgvOptions([
     description: 'Output directory for build files'
   },
   {
-    name: 'config',
+    name: 'build-config',
+    alias: "buildConfig",
     defaultValue: 'build.json',
     hasValue: true,
     description: 'Path to build.json configuration file'
@@ -110,7 +111,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
 if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
-if (logOptions.config === 'build.json') delete logOptions.config;
+if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;
 
 console.log(prettyjson.render(logOptions, {}, 2));
 
@@ -128,7 +129,7 @@ options.build = {
 };
 
 try {
-  const fileData = fs.readFileSync(path.resolve(options['config']), 'utf8');
+  const fileData = fs.readFileSync(path.resolve(options['buildConfig']), 'utf8');
   const json = JSON.parse(fileData);
   try {
     Object.assign(options.build, json);

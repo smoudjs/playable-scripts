@@ -95,27 +95,17 @@ sdk.init((width, height) => {
 #### 3. Event Handling
 
 ```javascript
-// Handle resize events
-sdk.on('resize', (width, height) => {
-  game.resize(width, height);
-});
-
-// Lifecycle events
+sdk.on('resize', game.resize, game);
 sdk.on('pause', game.pause, game);
 sdk.on('resume', game.resume, game);
 sdk.on('volume', game.volume, game);
 sdk.on('finish', game.finish, game);
-
-// Track interactions
-sdk.on('interaction', (count) => {
-  console.log(`User interaction count: ${count}`);
-});
 ```
 
 #### 4. Playable Lifecycle
 
 ```javascript
-// Start playable
+// Mark as resources loaded and gameplay started
 sdk.start();
 
 // Mark as complete
@@ -141,9 +131,9 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | ------------------------- | ---------------------------------------- | --------------- | ----------------------------- |
 | **Ad Network**            | Target ad network                        | `preview`       | `applovin`                    |
 | `--out-dir`               | Output directory for build files         | `dist`          | `--out-dir build`             |
-| `--config`                | Path to build.json configuration file    | `build.json`    | `--config custom.json`        |
-| `--ts-config`             | Path to tsconfig.json configuration file | `tsconfig.json` | `--config tsconfig.prod.json` |
-| `--js-config`             | Path to jsconfig.json configuration file | `jsconfig.json` | `--config jsconfig.prod.json` |
+| `--build-config`                | Path to build.json configuration file    | `build.json`    | `--build-config custom.json`        |
+| `--ts-config`             | Path to tsconfig.json configuration file | `tsconfig.json` | `--ts-config tsconfig.prod.json` |
+| `--js-config`             | Path to jsconfig.json configuration file | `jsconfig.json` | `--js-config jsconfig.prod.json` |
 | `--protocol`              | Ad protocol to use                       | `none`          | `--protocol mraid`            |
 | `--port`                  | Development server port number           | `3000`          | `--port 8080`                 |
 | `--open`                  | Open browser automatically               | `false`         | `--open`                      |
@@ -230,7 +220,7 @@ The package provides a programmatic API for integration into your build tools:
 const options = {
   // CLI options
   outDir: 'dist', // Output directory for build files
-  config: 'build.json', // Path to build.json configuration file
+  buildConfig: 'build.json', // Path to build.json configuration file
   tsConfig: 'tsconfig.json', // For TypeScript projects, path to tsconfig.json file
   jsConfig: 'jsconfig.json', // For JavaScript projects, path to jsconfig.json file
   port: 3000, // Development server port number

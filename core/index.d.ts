@@ -72,7 +72,7 @@ export interface CLIOptions {
   /** Output directory for build files (default: 'dist') */
   outDir: string;
   /** Path to build.json configuration file (default: 'build.json') */
-  config: string;
+  buildConfig: string;
   /** Path to tsconfig.json configuration file (default: 'tsconfig.json') */
   tsConfig: string;
   /** Path to jsconfig.json configuration file (default: 'jsconfig.json') */
