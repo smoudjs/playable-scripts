@@ -89,6 +89,12 @@ const options = parseArgvOptions([
     }
   },
   {
+    name: 'skip-recommended-meta',
+    alias: 'skipRecommendedMeta',
+    hasValue: false,
+    description: "Don't inject recommended for playable ads META tags"
+  },
+  {
     name: 'debugger',
     hasValue: true,
     description: 'URL of debugger script to inject into code'

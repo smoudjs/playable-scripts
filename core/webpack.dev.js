@@ -38,7 +38,10 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve('src/index.html'),
-          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$'
+          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$',
+          meta: {
+            viewport: 'width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0,user-scalable=no'
+          }
         }),
 
         new webpack.DefinePlugin({

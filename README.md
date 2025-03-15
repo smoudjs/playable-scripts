@@ -138,18 +138,19 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 
 ## CLI Arguments
 
-| Option         | Description                              | Default         | Example                       |
-| -------------- | ---------------------------------------- | --------------- | ----------------------------- |
-| **Ad Network** | Target ad network                        | `preview`       | `applovin`                    |
-| `--out-dir`    | Output directory for build files         | `dist`          | `--out-dir build`             |
-| `--config`     | Path to build.json configuration file    | `build.json`    | `--config custom.json`        |
-| `--ts-config`  | Path to tsconfig.json configuration file | `tsconfig.json` | `--config tsconfig.prod.json` |
-| `--js-config`  | Path to jsconfig.json configuration file | `jsconfig.json` | `--config jsconfig.prod.json` |
-| `--protocol`   | Ad protocol to use                       | `none`          | `--protocol mraid`            |
-| `--port`       | Development server port number           | `3000`          | `--port 8080`                 |
-| `--open`       | Open browser automatically               | `false`         | `--open`                      |
-| `--dev`        | Enable development mode                  | `true`          | `--dev false`                 |
-| `--debugger`   | URL of debugger script to inject         | -               | `--debugger http://...`       |
+| Option                    | Description                              | Default         | Example                       |
+| ------------------------- | ---------------------------------------- | --------------- | ----------------------------- |
+| **Ad Network**            | Target ad network                        | `preview`       | `applovin`                    |
+| `--out-dir`               | Output directory for build files         | `dist`          | `--out-dir build`             |
+| `--config`                | Path to build.json configuration file    | `build.json`    | `--config custom.json`        |
+| `--ts-config`             | Path to tsconfig.json configuration file | `tsconfig.json` | `--config tsconfig.prod.json` |
+| `--js-config`             | Path to jsconfig.json configuration file | `jsconfig.json` | `--config jsconfig.prod.json` |
+| `--protocol`              | Ad protocol to use                       | `none`          | `--protocol mraid`            |
+| `--port`                  | Development server port number           | `3000`          | `--port 8080`                 |
+| `--open`                  | Open browser automatically               | `false`         | `--open`                      |
+| `--dev`                   | Enable development mode                  | `true`          | `--dev false`                 |
+| `--skip-recommended-meta` | Skip recommended meta tags injection     | -               | `--skip-recommended-meta`     |
+| `--debugger`              | URL of debugger script to inject         | -               | `--debugger http://...`       |
 
 #### Target Ad Network
 
@@ -238,6 +239,7 @@ const options = {
   protocol: 'none', // Ad protocol to use (none, mraid, or dapi)
   network: 'preview', // Target Ad network
   dev: undefined, // Development mode flag
+  skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject
 
   // Build options
@@ -306,7 +308,7 @@ const finalOptions = mergeOptions(options, newOptions);
 ### Webpack Configuration
 
 ```javascript
-const { 
+const {
   makeWebpackDevConfig,
   makeWebpackBuildConfig,
   webpackCommonConfig
@@ -366,10 +368,10 @@ runBuild(null, customOptions);
 The package includes several webpack plugins for ad network integration:
 
 ```javascript
-const { 
-  DAPIInjectorPlugin, 
-  ExitAPIInjectorPlugin, 
-  DebuggerInjectionPlugin 
+const {
+  DAPIInjectorPlugin,
+  ExitAPIInjectorPlugin,
+  DebuggerInjectionPlugin
 } = require('@smoud/playable-scripts');
 
 // DAPI integration

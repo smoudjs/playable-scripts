@@ -2,6 +2,7 @@ const { merge } = require('webpack-merge');
 const { webpackCommonConfig } = require('./webpack.common.js');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
@@ -37,7 +38,7 @@ const adNetworkFileNameMap = {
 };
 
 /** @type {AD_NETWORK[]} */
-const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'facebook', 'mintegral'];
+const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral'];
 
 /**
  * Creates webpack configuration for production build
@@ -76,10 +77,26 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     return filename;
   }
 
-  const htmlFileName = '';
+  let htmlFileName = '';
   if (adNetwork === 'mintegral') htmlFileName = `${build.name}.html`;
   else if (zipOutputNetworks.includes(adNetwork)) htmlFileName = 'index.html';
   else htmlFileName = `${getFileName()}.html`;
+
+  const metaTags = {
+    viewport: 'width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0,user-scalable=no'
+  };
+
+  if (adNetwork === 'mintegral') {
+    metaTags['viewport'] = 'width=device-width,user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0';
+  }
+
+  if (!buildOptions.skipRecommendedMeta) {
+    metaTags['HandheldFriendly'] = 'True';
+    metaTags['cleartype'] = { 'http-equiv': 'cleartype', content: 'on' };
+    metaTags['apple-mobile-web-app-capable'] = 'yes';
+    metaTags['mobile-web-app-capable'] = 'yes';
+    metaTags['X-UA-Compatible'] = { 'http-equiv': 'X-UA-Compatible', content: 'IE=10' };
+  }
 
   const webpackConfig = merge(
     webpackCommonConfig,
@@ -111,10 +128,9 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
           template: path.resolve('src/index.html'),
           filename: htmlFileName,
           title: `${build.name} - ${build.app}`,
-          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$'
+          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$',
+          meta: metaTags
         }),
-
-        new HtmlInlineScriptPlugin(),
 
         new webpack.DefinePlugin({
           ...buildOptions.defines,
@@ -129,6 +145,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     },
     webpackCustomConfig
   );
+
+  if (adNetwork !== 'mintegral') webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
 
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());

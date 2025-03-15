@@ -87,6 +87,8 @@ export interface CLIOptions {
   network: string;
   /** Development mode flag */
   dev: boolean;
+  /** Skip recommended meta tags injection */
+  skipRecommendedMeta?: boolean;
   /** URL of debugger script to inject */
   debugger?: string;
   /** Build configuration options */
