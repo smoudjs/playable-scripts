@@ -147,4 +147,11 @@ options.defines = {
   LANGUAGE: JSON.stringify(options.build.language)
 };
 
+/** @type {AD_NETWORK} */
+let adNetworkDefine = options['network'];
+
+if (adNetworkDefine === 'pangle') adNetworkDefine = 'tiktok';
+
+options.defines[AD_NETWORK] = JSON.stringify(adNetworkDefine);
+
 exports.options = options;

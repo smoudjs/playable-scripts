@@ -3,16 +3,17 @@
   "version": "1.0.9",
   "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
   "main": "core/index.js",
+  "module": "core/index.js",
   "types": "core/index.d.ts",
   "exports": {
     "require": "./core/index.js"
   },
   "bin": {
-    "playable-scripts": "./cli/bin/playable-scripts.js"
+    "playable-scripts": "cli/bin/playable-scripts.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/smoudjs/playable-scripts.git"
+    "url": "git+https://github.com/smoudjs/playable-scripts.git"
   },
   "files": [
     "cli",

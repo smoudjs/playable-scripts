@@ -11,6 +11,7 @@ const { getCurrentDateFormatted } = require('./utils/date');
 const path = require('path');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
+const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
 
 /** @type {Record<string, string>} Mapping of ad network identifiers to their display names in filenames */
 const adNetworkFileNameMap = {
@@ -46,8 +47,12 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   customDefines = customDefines || {};
   webpackCustomConfig = webpackCustomConfig || {};
 
+  /** @type {AD_NETWORK} */
   const adNetwork = buildOptions['network'];
+
+  /** @type {AD_PROTOCOL} */
   const adProtocol = buildOptions['protocol'];
+
   const build = buildOptions.build;
 
   function getFileName() {
@@ -95,7 +100,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve('src/index.html'),
-          filename: adNetwork === 'google' ? './index.html' : `${getFileName()}.html`,
+          filename: ['google', 'pangle', 'tiktok'].includes(adNetwork) ? './index.html' : `${getFileName()}.html`,
           title: `${build.name}-${build.app}`,
           inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$'
         }),
@@ -118,7 +123,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
-  } else if ('google' === adNetwork) {
+  }
+
+  if (adNetwork === 'google') {
+    webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
+
     webpackConfig.plugins.push(
       new ZipPlugin({
         filename: `${getFileName()}.zip`,
@@ -126,11 +135,25 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       })
     );
 
-    webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
+    webpackConfig.output = {
+      filename: 'build.js',
+      path: path.resolve(buildOptions['outDir'], adNetwork)
+    };
+  } else if (adNetwork === 'pangle' || adNetwork === 'tiktok') {
+    if (adNetwork === 'pangle') {
+      webpackConfig.plugins.push(new PangleInjectorPlugin());
+    }
+
+    webpackConfig.plugins.push(
+      new ZipPlugin({
+        filename: `${getFileName()}.zip`,
+        path: path.resolve(buildOptions['outDir'])
+      })
+    );
 
     webpackConfig.output = {
       filename: 'build.js',
-      path: path.resolve(buildOptions['outDir'], 'google')
+      path: path.resolve(buildOptions['outDir'], adNetwork)
     };
   }
 
