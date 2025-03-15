@@ -1,8 +1,7 @@
 # @smoud/playable-scripts
 
-[![npm version](https://badgen.net/npm/v/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
-[![npm downloads](https://badgen.net/npm/dm/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
-[![build size](https://badgen.net/bundlephobia/min/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
+[![npm version](https://img.shields.io/npm/v/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
+[![Downloads](https://img.shields.io/npm/dw/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
 [![DeepScan grade](https://deepscan.io/api/teams/19616/projects/29071/branches/935562/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=19616&pid=29071&bid=935562)
 [![License](https://img.shields.io/npm/l/@smoud/playable-scripts)](https://opensource.org/license/MIT)
 
