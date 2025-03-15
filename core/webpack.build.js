@@ -141,6 +141,12 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       webpackConfig.plugins.push(new PangleInjectorPlugin());
     } else if (adNetwork === 'mintegral') {
       webpackConfig.plugins.push(new MintegralInjectorPlugin());
+    } else if (adNetwork === 'tiktok') {
+      webpackConfig.plugins.push(
+        new CopyWebpackPlugin({
+          patterns: [{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }]
+        })
+      );
     }
 
     webpackConfig.plugins.push(

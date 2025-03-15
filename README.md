@@ -288,14 +288,18 @@ const newOptions = parseArgvOptions([
 ]);
 
 // Change build options
-newOptions.build.app = 'Example';
-newOptions.build.version = 'v4';
+newOptions.build = {
+  app: 'Example';
+  version: 'v4';
+}
 
 // Change defines options
-newOptions.defines['APP_STORE_URL'] = JSON.stringify('https://www.apple.com/app-store/');
-newOptions.defines['__DEV__'] = JSON.stringify(false);
+newOptions.defines = {
+  APP_STORE_URL: JSON.stringify('https://www.apple.com/app-store/');
+  __DEV__: JSON.stringify(false);
+}
 
-// merge new options with defaults
+// Merge new options with defaults
 const finalOptions = mergeOptions(options, newOptions);
 ```
 
@@ -316,10 +320,10 @@ const devConfig = makeWebpackDevConfig(customOptions);
 const buildConfig = makeWebpackBuildConfig();
 
 // Create production configuration with custom definitions
-const buildConfig = makeWebpackBuildConfig(customOptions, customDefinitions);
+const buildConfig2 = makeWebpackBuildConfig(customOptions, customDefinitions);
 
 // Create production configuration with custom definitions and custom webpack config to merge
-const buildConfig = makeWebpackBuildConfig(customOptions, customDefinitions, customWebpackConfig);
+const buildConfig3 = makeWebpackBuildConfig(customOptions, customDefinitions, customWebpackConfig);
 
 // Create your own webpack config, based on webpackCommonConfig
 const customConfig = merge(webpackCommonConfig, {
@@ -337,6 +341,9 @@ runDev(webpackDevConfig);
 
 // Start development server with default config
 runDev();
+
+// Start development server with custom definitions
+runDev(null, null, customDefines);
 ```
 
 ### Production Build
@@ -349,6 +356,9 @@ runBuild(webpackBuildConfig);
 
 // Run production build with default config
 runBuild();
+
+// Run production build with custom options
+runBuild(null, customOptions);
 ```
 
 ### Plugins

@@ -153,6 +153,6 @@ let adNetworkDefine = options['network'];
 if (adNetworkDefine === 'pangle') adNetworkDefine = 'tiktok';
 if (adNetworkDefine === 'mytarget' || adNetworkDefine === 'moloco') adNetworkDefine = 'facebook';
 
-options.defines[AD_NETWORK] = JSON.stringify(adNetworkDefine);
+options.defines['AD_NETWORK'] = JSON.stringify(adNetworkDefine);
 
 exports.options = options;
