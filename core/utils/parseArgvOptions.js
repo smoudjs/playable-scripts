@@ -1,5 +1,3 @@
-var prettyjson = require('prettyjson');
-
 /** @type {string[]} List of supported advertising networks */
 const allowedAdNetworks = [
   'preview',
@@ -67,12 +65,6 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
       }
     }
   }
-
-  let output = argvOptions;
-  if (process.env.NODE_ENV === 'production') output = { ...argvOptions, port: undefined, open: undefined };
-  else if (process.env.NODE_ENV === 'development') output = { ...argvOptions, outDir: undefined };
-
-  console.log(prettyjson.render(output, {}, 2));
 
   return argvOptions;
 };

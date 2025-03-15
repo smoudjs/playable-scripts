@@ -1,6 +1,7 @@
 const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks } = require('./utils/parseArgvOptions');
 const path = require('path');
 const fs = require('fs');
+var prettyjson = require('prettyjson');
 
 /** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions([
@@ -93,6 +94,19 @@ const options = parseArgvOptions([
     description: 'URL of debugger script to inject into code'
   }
 ]);
+
+let logOptions = { ...options };
+if (process.env.NODE_ENV === 'production') {
+  delete logOptions.port;
+  delete logOptions.open;
+} else if (process.env.NODE_ENV === 'development') {
+  delete logOptions.outDir;
+}
+if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
+if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
+if (logOptions.config === 'build.json') delete logOptions.config;
+
+console.log(prettyjson.render(logOptions, {}, 2));
 
 /**
  * Building Build options
