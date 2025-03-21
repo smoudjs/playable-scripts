@@ -2,8 +2,8 @@
 
 [![npm version](https://img.shields.io/npm/v/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
 [![Downloads](https://img.shields.io/npm/dw/@smoud/playable-scripts)](https://www.npmjs.com/package/@smoud/playable-scripts)
-[![DeepScan grade](https://deepscan.io/api/teams/19616/projects/29071/branches/935562/badge/grade.svg)](https://deepscan.io/dashboard#view=project&tid=19616&pid=29071&bid=935562)
-[![License](https://img.shields.io/npm/l/@smoud/playable-scripts)](https://opensource.org/license/MIT)
+[![DeepScan grade](https://deepscan.io/api/teams/19616/projects/29071/branches/935562/badge/grade.svg)](https://github.com/smoudjs/playable-scripts)
+[![License](https://img.shields.io/npm/l/@smoud/playable-scripts)](https://github.com/smoudjs/playable-scripts/blob/master/LICENSE)
 
 **The Ultimate Build Tool for HTML5 Playable Ads**
 
@@ -418,6 +418,16 @@ new ExitAPIInjectorPlugin();
 // Custom debugger integration
 new DebuggerInjectionPlugin('http://debugger-url');
 ```
+
+## Demo Projects
+
+Get started quickly with our template projects:
+
+- [playable-template-base](https://github.com/smoudjs/playable-template-base) - Clean TypeScript starter with minimal dependencies
+- [playable-template-base-js](https://github.com/smoudjs/playable-template-base-js) - Clean JavaScript starter with minimal dependencies
+- [playable-template-pixi](https://github.com/smoudjs/playable-template-pixi) - PixiJS template for 2D playable ads
+- [playable-template-three](https://github.com/smoudjs/playable-template-three) - Three.js template for 3D playable ads
+- [playable-template-phaser](https://github.com/smoudjs/playable-template-phaser) - Phaser template for 2D playable ads
 
 ## Issues
 

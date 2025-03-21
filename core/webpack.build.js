@@ -9,6 +9,7 @@ const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
 const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
 const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
 const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.js');
+const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
 const ZipPlugin = require('zip-webpack-plugin');
 const { getCurrentDateFormatted } = require('./utils/date');
 const path = require('path');
@@ -151,6 +152,10 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
+  } else if ('mraid' === adProtocol) {
+    if (adNetwork === 'ironsource') {
+      webpackConfig.plugins.push(new MRAIDInjectorPlugin());
+    }
   }
 
   if (zipOutputNetworks.includes(adNetwork)) {

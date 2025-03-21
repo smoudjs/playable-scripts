@@ -2,6 +2,7 @@ const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks } = require('./u
 const path = require('path');
 const fs = require('fs');
 var prettyjson = require('prettyjson');
+const { name, version } = require('../package.json');
 
 /** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions([
@@ -113,6 +114,7 @@ if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
 if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
 if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;
 
+console.log(`${name} v${version}`)
 console.log(prettyjson.render(logOptions, {}, 2));
 
 /**
