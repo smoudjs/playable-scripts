@@ -63,7 +63,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   function getFileName() {
     let networkName = adNetworkFileNameMap[adNetwork] || adNetwork;
-    if (adProtocol === 'dapi') networkName += '-DAPI';
+    if (adProtocol === 'dapi') networkName += '_DAPI';
 
     let filename = build.filename;
 
