@@ -73,7 +73,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     filename = filename.replaceAll('{date}', getCurrentDateFormatted());
     filename = filename.replaceAll('{language}', build.language);
     filename = filename.replaceAll('{network}', networkName);
-    filename = filename.replaceAll('{hash}', '[hash]');
+    filename = filename.replaceAll('{hash}', '[fullhash]');
 
     if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_');
     return filename;
@@ -210,7 +210,7 @@ function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConf
     }
 
     if (stats.hasErrors()) {
-      console.log(stats);
+      console.log(stats.compilation.errors);
       console.error(`Build finished with errors.`);
     } else {
       console.log(`Build successful!`);

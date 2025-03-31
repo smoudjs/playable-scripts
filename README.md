@@ -138,6 +138,9 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--port`                  | Development server port number           | `3000`          | `--port 8080`                    |
 | `--open`                  | Open browser automatically               | `false`         | `--open`                         |
 | `--dev`                   | Enable development mode                  | `true`          | `--dev false`                    |
+| `--build-app`             | Customize build.json app                 | -               | `--build-app MyGame`             |
+| `--build-name`            | Customize build.json name                | -               | `--build-name Concept1`          |
+| `--build-version`         | Customize build.json version             | -               | `--build-version v2.1`           |
 | `--skip-recommended-meta` | Skip recommended meta tags injection     | -               | `--skip-recommended-meta`        |
 | `--debugger`              | URL of debugger script to inject         | -               | `--debugger http://...`          |
 
@@ -218,6 +221,7 @@ The filename template supports the following variables:
 > `<meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0">`
 
 Additionally, unless `--skip-recommended-meta` is provided, the following recommended meta tags are automatically injected:
+
 - `<meta name="HandheldFriendly" content="True">`
 - `<meta name="cleartype" http-equiv="cleartype" content="on">`
 - `<meta name="apple-mobile-web-app-capable" content="yes">`S
@@ -280,9 +284,9 @@ const options = {
   // Build options
   build: {
     filename: '{app}_{name}_{version}_{date}_{language}_{network}', // Template for output filename
-    app: 'AppName', // Application name used in build output
-    name: 'ConceptName', // Concept name used in build output
-    version: '1', // Build version number
+    app: 'AppName', // Application name used in build filename and BUILD_APP define
+    name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
+    version: '1', // Version name used in build filename and BUILD_VERSION define
     language: 'EN', // Language code for localization
     google_play_url: 'https://play.google.com/store/games', // Google Play Store URL
     app_store_url: 'https://www.apple.com/app-store/' // App Store URL
@@ -343,11 +347,8 @@ const finalOptions = mergeOptions(options, newOptions);
 ### Webpack Configuration
 
 ```javascript
-const {
-  makeWebpackDevConfig,
-  makeWebpackBuildConfig,
-  webpackCommonConfig
-} = require('@smoud/playable-scripts');
+const { makeWebpackDevConfig, makeWebpackBuildConfig } = require('@smoud/playable-scripts');
+const { webpackCommonConfig } = require('@smoud/playable-scripts');
 const { merge } = require('webpack-merge');
 
 // Create development configuration
@@ -403,14 +404,7 @@ runBuild(null, customOptions);
 The package includes several webpack plugins for ad network integration:
 
 ```javascript
-const {
-  DAPIInjectorPlugin,
-  ExitAPIInjectorPlugin,
-  DebuggerInjectionPlugin
-} = require('@smoud/playable-scripts');
-
-// DAPI integration
-new DAPIInjectorPlugin();
+const { ExitAPIInjectorPlugin, DebuggerInjectionPlugin } = require('@smoud/playable-scripts');
 
 // Google Ads ExitAPI integration
 new ExitAPIInjectorPlugin();

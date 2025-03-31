@@ -91,6 +91,21 @@ const options = parseArgvOptions([
     }
   },
   {
+    name: 'build-app',
+    hasValue: true,
+    description: 'Specifies the application name used in build filename and BUILD_APP define'
+  },
+  {
+    name: 'build-name',
+    hasValue: true,
+    description: 'Specifies the concept name used in build filename and BUILD_NAME define'
+  },
+  {
+    name: 'build-version',
+    hasValue: true,
+    description: 'Specifies the version name used in build filename and BUILD_VERSION define'
+  },
+  {
     name: 'skip-recommended-meta',
     alias: 'skipRecommendedMeta',
     hasValue: false,
@@ -139,6 +154,10 @@ try {
     console.log(chalk.red('Build config parsing error: ' + err.message));
   }
 } catch (err) {}
+
+if (options['build-app']) options.build.app = options['build-app']
+if (options['build-name']) options.build.name = options['build-name']
+if (options['build-version']) options.build.version = options['build-version']
 
 /**
  * Building Defines options

@@ -34,7 +34,8 @@ const webpackConfig = {
   },
   output: {
     filename: 'build.js',
-    path: path.resolve(options['outDir'])
+    path: path.resolve(options['outDir']),
+    hashDigestLength: 6
   },
   module: {
     rules: [

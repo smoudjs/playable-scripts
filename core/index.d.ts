@@ -27,11 +27,11 @@ export declare function mergeOptions<T>(target: T, source?: Partial<T>): T;
 export interface BuildOptions {
   /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */
   filename: string;
-  /** Application name used in build output */
+  /** Application name used in build filename and BUILD_APP define */
   app: string;
-  /** Concept name used in build output */
+  /** Concept name used in build filename and BUILD_NAME define */
   name: string;
-  /** Build version number */
+  /** Version name used in build filename and BUILD_VERSION define */
   version: string;
   /** Language code for localization */
   language: string;
@@ -91,6 +91,12 @@ export interface CLIOptions {
   skipRecommendedMeta?: boolean;
   /** URL of debugger script to inject */
   debugger?: string;
+  /** Application name used in build filename and BUILD_APP define */
+  'build-app'?: string;
+  /** Concept name used in build filename and BUILD_NAME define */
+  'build-name'?: string;
+  /** Version name used in build filename and BUILD_VERSION define */
+  'build-version'?: string;
   /** Build configuration options */
   build: BuildOptions;
   /** Webpack define plugin configuration */
