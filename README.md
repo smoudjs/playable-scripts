@@ -154,7 +154,7 @@ playable-scripts build unity
 
 #### Supported Networks
 
-- `preview` - Development preview
+- `preview` (Preview) - Browser preview
 - `applovin` (AL) - AppLovin
 - `unity` (UNITY) - Unity Ads
 - `google` (GOOGLE) - Google Ads

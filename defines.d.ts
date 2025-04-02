@@ -6,6 +6,7 @@ declare module '*.gltf';
 declare module '*.mp3';
 
 declare const AD_NETWORK:
+  | 'preview'
   | 'applovin'
   | 'unity'
   | 'google'
