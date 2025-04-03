@@ -13,7 +13,7 @@ if (fs.existsSync(tsConfigPath)) {
 }
 
 /** @type {string[]} List of file extensions that webpack will resolve */
-const allowedExtensions = ['.ts', '.tsx', '.js', '.json', '.png', '.glb', '.jpg', '.mp3', '.svg', '.css', '.gif', '.mp4'];
+const allowedExtensions = ['.ts', '.tsx', '.js', '.json', '.png', '.glb', '.fbx', '.obj', '.jpg', '.mp3', '.svg', '.css', '.gif', '.mp4'];
 
 /** @type {import('webpack').Configuration} Base webpack configuration used by both development and build configs */
 const webpackConfig = {
@@ -34,8 +34,7 @@ const webpackConfig = {
   },
   output: {
     filename: 'build.js',
-    path: path.resolve(options['outDir']),
-    hashDigestLength: 6
+    path: path.resolve('dist')
   },
   module: {
     rules: [
@@ -72,7 +71,7 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|svg|mp3|m4a|ogg|wav|json|glb$)$/i,
+        test: /\.(gif|png|jpe?g|svg|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
         type: 'asset/inline'
       },
       {

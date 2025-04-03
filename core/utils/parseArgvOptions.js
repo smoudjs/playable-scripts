@@ -23,7 +23,20 @@ const allowedAdNetworks = [
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
 
 /** @type {AD_NETWORK[]} List of advertising partners that support MRAID protocol */
-const mraidPartners = ['ironsource', 'applovin', 'unity', 'appreciate', 'snapchat', 'chartboost', 'mytarget', 'liftoff', 'adcolony'];
+const mraidPartners = [
+  'ironsource',
+  'applovin',
+  'unity',
+  'appreciate',
+  'snapchat',
+  'chartboost',
+  'mytarget',
+  'liftoff',
+  'adcolony'
+];
+
+/** @type {LANGUAGE[]} */
+const allowedLanguages = ['auto', 'en', 'es', 'zh', 'hi', 'ar', 'fr', 'de', 'ja', 'pt'];
 
 /**
  * Parses command line arguments based on provided options configuration
@@ -73,3 +86,4 @@ exports.parseArgvOptions = function parseArgvOptions(posiibleOptions) {
 exports.allowedAdNetworks = allowedAdNetworks;
 exports.allowedAdProtocols = allowedAdProtocols;
 exports.mraidPartners = mraidPartners;
+exports.allowedLanguages = allowedLanguages;

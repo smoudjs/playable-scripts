@@ -127,22 +127,24 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 
 ## CLI Arguments
 
-| Option                    | Description                              | Default         | Example                          |
-| ------------------------- | ---------------------------------------- | --------------- | -------------------------------- |
-| **Ad Network**            | Target ad network                        | `preview`       | `applovin`                       |
-| `--out-dir`               | Output directory for build files         | `dist`          | `--out-dir build`                |
-| `--build-config`          | Path to build.json configuration file    | `build.json`    | `--build-config custom.json`     |
-| `--ts-config`             | Path to tsconfig.json configuration file | `tsconfig.json` | `--ts-config tsconfig.prod.json` |
-| `--js-config`             | Path to jsconfig.json configuration file | `jsconfig.json` | `--js-config jsconfig.prod.json` |
-| `--protocol`              | Ad protocol to use                       | `none`          | `--protocol mraid`               |
-| `--port`                  | Development server port number           | `3000`          | `--port 8080`                    |
-| `--open`                  | Open browser automatically               | `false`         | `--open`                         |
-| `--dev`                   | Enable development mode                  | `true`          | `--dev false`                    |
-| `--build-app`             | Customize build.json app                 | -               | `--build-app MyGame`             |
-| `--build-name`            | Customize build.json name                | -               | `--build-name Concept1`          |
-| `--build-version`         | Customize build.json version             | -               | `--build-version v2.1`           |
-| `--skip-recommended-meta` | Skip recommended meta tags injection     | -               | `--skip-recommended-meta`        |
-| `--debugger`              | URL of debugger script to inject         | -               | `--debugger http://...`          |
+| Option                    | Description                               | Default                                                   | Example                          |
+| ------------------------- | ----------------------------------------- | --------------------------------------------------------- | -------------------------------- |
+| **Ad Network**            | Target ad network                         | `preview`                                                 | `applovin`                       |
+| `--out-dir`               | Output directory template for build files | `dist`                                                    | `--out-dir build/{version}`      |
+| `--build-config`          | Path to build.json configuration file     | `build.json`                                              | `--build-config custom.json`     |
+| `--ts-config`             | Path to tsconfig.json configuration file  | `tsconfig.json`                                           | `--ts-config tsconfig.prod.json` |
+| `--js-config`             | Path to jsconfig.json configuration file  | `jsconfig.json`                                           | `--js-config jsconfig.prod.json` |
+| `--protocol`              | Ad protocol to use                        | `none`                                                    | `--protocol mraid`               |
+| `--port`                  | Development server port number            | `3000`                                                    | `--port 8080`                    |
+| `--open`                  | Open browser automatically                | `false`                                                   | `--open`                         |
+| `--dev`                   | Enable development mode                   | `true` for dev<br>`false` for build                       | `--dev false`                    |
+| `--filename`              | Template for output filename              | [See Build Configuration](#build-configuration-buildjson) | `--filename {app}-{version}`     |
+| `--app`                   | Customize build.json app                  | [See Build Configuration](#build-configuration-buildjson) | `--app MyGame`                   |
+| `--name`                  | Customize build.json name                 | [See Build Configuration](#build-configuration-buildjson) | `--name Concept1`                |
+| `--version`               | Customize build.json version              | [See Build Configuration](#build-configuration-buildjson) | `--version v2.1`                 |
+| `--language`              | Customize build.json language             | [See Build Configuration](#build-configuration-buildjson) | `--language fr`                  |
+| `--skip-recommended-meta` | Skip recommended meta tags injection      | -                                                         | `--skip-recommended-meta`        |
+| `--debugger`              | URL of debugger script to inject          | -                                                         | `--debugger http://...`          |
 
 #### Target Ad Network
 
@@ -190,16 +192,20 @@ The `build.json` file allows you to customize build options. Here's the format:
   "filename": "{app}_{name}_{version}_{date}_{language}_{network}",
   "app": "AppName",
   "name": "ConceptName",
-  "version": "1",
+  "version": "v1",
   "language": "EN",
   "google_play_url": "https://play.google.com/store/games",
   "app_store_url": "https://www.apple.com/app-store/"
 }
 ```
 
-All fields are optional and will use the default values shown above if not specified.
+All fields are optional and will use the default values shown [here](#default-options) if not specified.
 
-The filename template supports the following variables:
+Check [Default options](#default-options) to see full list of available options.
+
+## Output directory and filename template
+
+The `outDir` and `filename` templates supports the following variables:
 
 - `{app}` - Application name
 - `{name}` - Concept name
@@ -222,11 +228,13 @@ The filename template supports the following variables:
 
 Additionally, unless `--skip-recommended-meta` is provided, the following recommended meta tags are automatically injected:
 
-- `<meta name="HandheldFriendly" content="True">`
-- `<meta name="cleartype" http-equiv="cleartype" content="on">`
-- `<meta name="apple-mobile-web-app-capable" content="yes">`S
-- `<meta name="mobile-web-app-capable" content="yes">`
-- `<meta http-equiv="X-UA-Compatible" content="IE=10">`
+```html
+<meta name="HandheldFriendly" content="True" />
+<meta name="cleartype" http-equiv="cleartype" content="on" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="mobile-web-app-capable" content="yes" />
+<meta http-equiv="X-UA-Compatible" content="IE=10" />
+```
 
 ## Examples
 
@@ -250,14 +258,14 @@ npx playable-scripts build applovin
 npm run build applovin
 ```
 
-Build with DAPI protocol:
+Build with DAPI protocol with specific version:
 
 ```bash
-npx playable-scripts build ironsource --protocol dapi
+npx playable-scripts build ironsource --protocol dapi --version endcard_2
 ```
 
 ```bash
-npm run build ironsource -- --protocol dapi
+npm run build ironsource -- --protocol dapi --version endcard_2
 ```
 
 ## API Reference
@@ -277,20 +285,16 @@ const options = {
   open: false, // Whether to open browser automatically
   protocol: 'none', // Ad protocol to use (none, mraid, or dapi)
   network: 'preview', // Target Ad network
+  filename: '{app}_{name}_{version}_{date}_{language}_{network}', // Template for output filename
+  app: 'AppName', // Application name used in build filename and BUILD_APP define
+  name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
+  version: 'v1', // Version name used in build filename and BUILD_VERSION define
+  language: 'en', // Language code for localization
+  google_play_url: 'https://play.google.com/store/games', // Google Play Store URL
+  app_store_url: 'https://www.apple.com/app-store/', // App Store URL
   dev: undefined, // Development mode flag
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject
-
-  // Build options
-  build: {
-    filename: '{app}_{name}_{version}_{date}_{language}_{network}', // Template for output filename
-    app: 'AppName', // Application name used in build filename and BUILD_APP define
-    name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
-    version: '1', // Version name used in build filename and BUILD_VERSION define
-    language: 'EN', // Language code for localization
-    google_play_url: 'https://play.google.com/store/games', // Google Play Store URL
-    app_store_url: 'https://www.apple.com/app-store/' // App Store URL
-  },
 
   // Defines options (automatically generated from CLI and Build options)
   defines: {
@@ -299,11 +303,11 @@ const options = {
     APP_STORE_URL: '...', // App Store URL constant
     AD_NETWORK: '...', // Current advertising network identifier
     AD_PROTOCOL: '...', // Current advertising protocol
-    BUILD_APP: '...', // Application name constant
-    BUILD_NAME: '...', // Build name constant
-    BUILD_VERSION: '...', // Build version constant
-    BUILD_HASH: '...', // Unique build identifier
-    LANGUAGE: '...' // Current language code
+    APP: '...', // Application name constant
+    NAME: '...', // Build name constant
+    VERSION: '...', // Build version constant
+    LANGUAGE: '...', // Current language code
+    BUILD_HASH: '...' // Unique build hash
   }
 };
 ```
@@ -329,10 +333,8 @@ const newOptions = parseArgvOptions([
 ]);
 
 // Change build options
-newOptions.build = {
-  app: 'Example';
-  version: 'v4';
-}
+newOptions.app = 'Example';
+newOptions.version = 'v4';
 
 // Change defines options
 newOptions.defines = {

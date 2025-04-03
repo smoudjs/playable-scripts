@@ -15,28 +15,8 @@ const { getCurrentDateFormatted } = require('./utils/date');
 const path = require('path');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
-
-/** @type {Record<string, string>} Mapping of ad network identifiers to their display names in filenames */
-const adNetworkFileNameMap = {
-  preview: 'Preview',
-  applovin: 'AL',
-  unity: 'UNITY',
-  google: 'GOOGLE',
-  ironsource: 'IS',
-  facebook: 'FB',
-  moloco: 'MOLOCO',
-  adcolony: 'ADCOLONY',
-  mintegral: 'MINTEGRAL',
-  vungle: 'VUNGLE',
-  tapjoy: 'TAPJOY',
-  snapchat: 'SNAPCHAT',
-  tiktok: 'TIKTOK',
-  appreciate: 'APPRECIATE',
-  chartboost: 'CHARTBOOST',
-  pangle: 'PANGLE',
-  mytarget: 'MYTARGET',
-  liftoff: 'LIFTOFF'
-};
+const { buildDefines } = require('./utils/buildDefines.js');
+const { buildTemplateString } = require('./utils/buildTemplateString.js');
 
 /** @type {AD_NETWORK[]} */
 const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral'];
@@ -59,28 +39,17 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   /** @type {AD_PROTOCOL} */
   const adProtocol = buildOptions['protocol'];
 
-  const build = buildOptions.build;
+  let outDir = buildTemplateString(buildOptions.outDir);
 
   function getFileName() {
-    let networkName = adNetworkFileNameMap[adNetwork] || adNetwork;
-    if (adProtocol === 'dapi') networkName += '_DAPI';
-
-    let filename = build.filename;
-
-    filename = filename.replaceAll('{app}', build.app);
-    filename = filename.replaceAll('{name}', build.name);
-    filename = filename.replaceAll('{version}', build.version);
-    filename = filename.replaceAll('{date}', getCurrentDateFormatted());
-    filename = filename.replaceAll('{language}', build.language);
-    filename = filename.replaceAll('{network}', networkName);
-    filename = filename.replaceAll('{hash}', '[fullhash]');
+    let filename = buildTemplateString(buildOptions.filename);
 
     if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_');
     return filename;
   }
 
   let htmlFileName = '';
-  if (adNetwork === 'mintegral') htmlFileName = `${build.name}.html`;
+  if (adNetwork === 'mintegral') htmlFileName = `${buildOptions.name}.html`;
   else if (zipOutputNetworks.includes(adNetwork)) htmlFileName = 'index.html';
   else htmlFileName = `${getFileName()}.html`;
 
@@ -129,12 +98,13 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
         new HtmlWebpackPlugin({
           template: path.resolve('src/index.html'),
           filename: htmlFileName,
-          title: `${build.name} - ${build.app}`,
-          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$',
+          title: `${buildOptions.name} - ${buildOptions.app}`,
+          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx|obj)$',
           meta: metaTags
         }),
 
         new webpack.DefinePlugin({
+          ...buildDefines(),
           ...buildOptions.defines,
           ...customDefines
         }),
@@ -147,6 +117,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     },
     webpackCustomConfig
   );
+
+  webpackConfig.output.path = path.resolve(outDir);
 
   if (adNetwork !== 'mintegral') webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
 
@@ -176,14 +148,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     webpackConfig.plugins.push(
       new ZipPlugin({
         filename: `${getFileName()}.zip`,
-        path: path.resolve(buildOptions['outDir'])
+        path: path.resolve(outDir)
       })
     );
 
-    webpackConfig.output = {
-      filename: 'build.js',
-      path: path.resolve(buildOptions['outDir'], adNetwork)
-    };
+    webpackConfig.output.path = path.resolve(outDir, adNetwork);
   }
 
   return webpackConfig;

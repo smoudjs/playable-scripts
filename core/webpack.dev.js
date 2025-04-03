@@ -7,6 +7,7 @@ const path = require('path');
 const { DebuggerInjectionPlugin } = require('./plugins/DebuggerInjectionPlugin.js');
 const { options } = require('./options.js');
 const { mergeOptions } = require('./utils/mergeOptions.js');
+const { buildDefines } = require('./utils/buildDefines.js');
 
 /**
  * Creates webpack configuration for development
@@ -27,7 +28,7 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
       devtool: 'inline-source-map',
       devServer: {
         static: {
-          directory: path.resolve(devOptions['outDir'])
+          directory: path.resolve('dist')
         },
         hot: true,
         // compress: true,
@@ -38,13 +39,14 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
       plugins: [
         new HtmlWebpackPlugin({
           template: path.resolve('src/index.html'),
-          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx)$',
+          inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx|obj)$',
           meta: {
             viewport: 'width=device-width,initial-scale=1.0,viewport-fit=cover,maximum-scale=1.0,user-scalable=no'
           }
         }),
 
         new webpack.DefinePlugin({
+          ...buildDefines(),
           ...devOptions.defines,
           __DEV__: JSON.stringify(devOptions['dev'] === undefined ? true : devOptions['dev']),
           ...customDefines

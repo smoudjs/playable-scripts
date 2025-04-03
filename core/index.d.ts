@@ -23,24 +23,6 @@ export declare function parseArgvOptions(possibleOptions: CLIOptionConfig[]): Re
 /** Deep merge configuration options */
 export declare function mergeOptions<T>(target: T, source?: Partial<T>): T;
 
-/** Configuration options for the build process */
-export interface BuildOptions {
-  /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */
-  filename: string;
-  /** Application name used in build filename and BUILD_APP define */
-  app: string;
-  /** Concept name used in build filename and BUILD_NAME define */
-  name: string;
-  /** Version name used in build filename and BUILD_VERSION define */
-  version: string;
-  /** Language code for localization */
-  language: string;
-  /** Google Play Store URL for the app */
-  google_play_url: string;
-  /** App Store URL for the app */
-  app_store_url: string;
-}
-
 /** Configuration for webpack defines */
 export interface DefinesOptions {
   /** Development mode flag for conditional code */
@@ -54,11 +36,11 @@ export interface DefinesOptions {
   /** Current advertising protocol */
   AD_PROTOCOL: string;
   /** Application name constant */
-  BUILD_APP: string;
+  APP: string;
   /** Build name constant */
-  BUILD_NAME: string;
+  NAME: string;
   /** Build version constant */
-  BUILD_VERSION: string;
+  VERSION: string;
   /** Unique build identifier generated from timestamp */
   BUILD_HASH: string;
   /** Current language code */
@@ -67,8 +49,6 @@ export interface DefinesOptions {
 
 /** CLI configuration options */
 export interface CLIOptions {
-  /** Just for output current NODE_ENV mode */
-  mode?: string;
   /** Output directory for build files (default: 'dist') */
   outDir: string;
   /** Path to build.json configuration file (default: 'build.json') */
@@ -84,23 +64,47 @@ export interface CLIOptions {
   /** Ad protocol to use (default: 'none') */
   protocol: 'none' | 'mraid' | 'dapi';
   /** Ad network identifier (default: 'preview') */
-  network: string;
+  network:
+    | 'preview'
+    | 'applovin'
+    | 'unity'
+    | 'google'
+    | 'ironsource'
+    | 'facebook'
+    | 'moloco'
+    | 'mintegral'
+    | 'vungle'
+    | 'adcolony'
+    | 'tapjoy'
+    | 'snapchat'
+    | 'tiktok'
+    | 'appreciate'
+    | 'chartboost'
+    | 'pangle'
+    | 'mytarget'
+    | 'liftoff';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */
   skipRecommendedMeta?: boolean;
   /** URL of debugger script to inject */
   debugger?: string;
+  /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */
+  filename: string;
   /** Application name used in build filename and BUILD_APP define */
-  'build-app'?: string;
+  app: string;
   /** Concept name used in build filename and BUILD_NAME define */
-  'build-name'?: string;
+  name: string;
   /** Version name used in build filename and BUILD_VERSION define */
-  'build-version'?: string;
-  /** Build configuration options */
-  build: BuildOptions;
+  version: string;
+  /** Language code for localization */
+  language: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
+  /** Google Play Store URL for the app */
+  google_play_url: string;
+  /** App Store URL for the app */
+  app_store_url: string;
   /** Webpack define plugin configuration */
-  defines: DefinesOptions;
+  defines: Record<string, string>;
 }
 
 /** Global options object */
