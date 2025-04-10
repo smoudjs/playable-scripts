@@ -18,7 +18,7 @@ const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
 
 /** @type {AD_NETWORK[]} */
-const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral'];
+const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'moloco', 'mintegral'];
 
 /**
  * Creates webpack configuration for production build

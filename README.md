@@ -139,10 +139,10 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--open`                  | Open browser automatically                | `false`                                                   | `--open`                         |
 | `--dev`                   | Enable development mode                   | `true` for dev<br>`false` for build                       | `--dev false`                    |
 | `--filename`              | Template for output filename              | [See Build Configuration](#build-configuration-buildjson) | `--filename {app}-{version}`     |
-| `--app`                   | Customize build.json app                  | [See Build Configuration](#build-configuration-buildjson) | `--app MyGame`                   |
-| `--name`                  | Customize build.json name                 | [See Build Configuration](#build-configuration-buildjson) | `--name Concept1`                |
-| `--version`               | Customize build.json version              | [See Build Configuration](#build-configuration-buildjson) | `--version v2.1`                 |
-| `--language`              | Customize build.json language             | [See Build Configuration](#build-configuration-buildjson) | `--language fr`                  |
+| `--app`                   | Application name                          | [See Build Configuration](#build-configuration-buildjson) | `--app MyGame`                   |
+| `--name`                  | Concept name                              | [See Build Configuration](#build-configuration-buildjson) | `--name Concept1`                |
+| `--version`               | Build version                             | [See Build Configuration](#build-configuration-buildjson) | `--version v2.1`                 |
+| `--language`              | Language code                             | [See Build Configuration](#build-configuration-buildjson) | `--language fr`                  |
 | `--skip-recommended-meta` | Skip recommended meta tags injection      | -                                                         | `--skip-recommended-meta`        |
 | `--debugger`              | URL of debugger script to inject          | -                                                         | `--debugger http://...`          |
 
@@ -215,6 +215,48 @@ The `outDir` and `filename` templates supports the following variables:
 - `{network}` - Target ad network
 - `{hash}` - Unique build identifier
 
+## Defines
+
+The following global defines are automatically available in your code during development and build:
+
+| Define            | Description                              | Example Value                        |
+| ----------------- | ---------------------------------------- | ------------------------------------ |
+| `__DEV__`         | Boolean flag indicating development mode | `true` or `false`                    |
+| `GOOGLE_PLAY_URL` | Google Play Store URL constant           | `"https://play.google.com/store/"`   |
+| `APP_STORE_URL`   | App Store URL constant                   | `"https://www.apple.com/app-store/"` |
+| `AD_NETWORK`      | Current advertising network identifier   | `"google"`, `"facebook"`, etc.       |
+| `AD_PROTOCOL`     | Current advertising protocol             | `"none"`, `"mraid"`, `"dapi"`        |
+| `APP`             | Application name constant                | `"AppName"`                          |
+| `NAME`            | Build name constant                      | `"ConceptName"`                      |
+| `VERSION`         | Build version constant                   | `"v1"`                               |
+| `LANGUAGE`        | Current language code                    | `"en"`, `"es"`, etc.                 |
+| `BUILD_HASH`      | Unique build hash                        | `"a1b2c3d4"`                         |
+
+These defines can be used in your code for conditional logic:
+
+```javascript
+if (__DEV__) {
+  console.log('Dev mode is active');
+}
+
+if (AD_NETWORK === 'google') {
+  // google network specific code
+}
+
+console.log(`Current language: ${LANGUAGE}`);
+```
+
+You can also add custom defines by modifying the `defines` property in your build.json file:
+
+```json
+{
+  "defines": {
+    "CUSTOM_DEFINE": "'custom value'",
+    "FEATURE_FLAG": "true"
+  }
+}
+```
+
 ## Meta Tags
 
 `@smoud/playable-scripts` automatically manages viewport meta tags for optimal display across devices.
@@ -276,7 +318,6 @@ The package provides a programmatic API for integration into your build tools:
 
 ```javascript
 const options = {
-  // CLI options
   outDir: 'dist', // Output directory for build files
   buildConfig: 'build.json', // Path to build.json configuration file
   tsConfig: 'tsconfig.json', // For TypeScript projects, path to tsconfig.json file
@@ -295,20 +336,7 @@ const options = {
   dev: undefined, // Development mode flag
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject
-
-  // Defines options (automatically generated from CLI and Build options)
-  defines: {
-    __DEV__: false, // Development mode flag
-    GOOGLE_PLAY_URL: '...', // Google Play Store URL constant
-    APP_STORE_URL: '...', // App Store URL constant
-    AD_NETWORK: '...', // Current advertising network identifier
-    AD_PROTOCOL: '...', // Current advertising protocol
-    APP: '...', // Application name constant
-    NAME: '...', // Build name constant
-    VERSION: '...', // Build version constant
-    LANGUAGE: '...', // Current language code
-    BUILD_HASH: '...' // Unique build hash
-  }
+  defines: {} // Defines options
 };
 ```
 
