@@ -10,7 +10,7 @@ const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
 const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
 const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.js');
 const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
-const ZipPlugin = require('zip-webpack-plugin');
+const { ZipPlugin } = require('./plugins/ZipPlugin.js');
 const path = require('path');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
@@ -43,7 +43,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   function getFileName() {
     let filename = buildTemplateString(buildOptions.filename);
 
-    if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_');
+    if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_').replace('_fullhash_6_', '[fullhash:6]');
     return filename;
   }
 
@@ -146,7 +146,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
     webpackConfig.plugins.push(
       new ZipPlugin({
-        filename: `${getFileName()}.zip`,
+        filename: getFileName(),
         path: path.resolve(outDir)
       })
     );
