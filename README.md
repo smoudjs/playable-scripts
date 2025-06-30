@@ -193,9 +193,9 @@ The `build.json` file allows you to customize build options. Here's the format:
   "app": "AppName",
   "name": "ConceptName",
   "version": "v1",
-  "language": "EN",
-  "google_play_url": "https://play.google.com/store/games",
-  "app_store_url": "https://www.apple.com/app-store/"
+  "language": "en",
+  "googlePlayUrl": "https://play.google.com/store/games",
+  "appStoreUrl": "https://www.apple.com/app-store/"
 }
 ```
 
@@ -331,8 +331,8 @@ const options = {
   name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
   version: 'v1', // Version name used in build filename and BUILD_VERSION define
   language: 'en', // Language code for localization
-  google_play_url: 'https://play.google.com/store/games', // Google Play Store URL
-  app_store_url: 'https://www.apple.com/app-store/', // App Store URL
+  googlePlayUrl: 'https://play.google.com/store/games', // Google Play Store URL
+  appStoreUrl: 'https://www.apple.com/app-store/', // App Store URL
   dev: undefined, // Development mode flag
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject

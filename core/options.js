@@ -121,14 +121,14 @@ const possibleOptions = [
   },
   {
     name: 'google-play-url',
-    alias: 'google_play_url',
+    alias: 'googlePlayUrl',
     defaultValue: 'https://play.google.com/store/games',
     hasValue: true,
     description: 'Google Play Store URL for the app'
   },
   {
     name: 'app-store-url',
-    alias: 'app_store_url',
+    alias: 'appStoreUrl',
     defaultValue: 'https://www.apple.com/app-store/',
     hasValue: true,
     description: 'App Store URL for the app'
@@ -149,10 +149,9 @@ const possibleOptions = [
 /** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions(possibleOptions);
 
-/**
- * Building Defines options
- */
+
 options.defines = {};
+options.compilation = {};
 
 try {
   const fileData = fs.readFileSync(path.resolve(options['buildConfig']), 'utf8');
@@ -160,6 +159,9 @@ try {
     const customOptions = JSON.parse(fileData);
     for (let key in customOptions) {
       if (key === 'defines') Object.assign(options.defines, customOptions[key]);
+      else if (key === 'compilation') Object.assign(options.compilation, customOptions[key]);
+      else if (key === 'google_play_url') options.googlePlayUrl = customOptions.google_play_url;
+      else if (key === 'app_store_url') options.appStoreUrl = customOptions.app_store_url;
       else {
         const possibleOption = possibleOptions.find((e) => e.alias === key || e.name === key);
         if (possibleOption && (options[key] === undefined || options[key] === possibleOption.defaultValue)) {
@@ -180,6 +182,7 @@ if (process.env.NODE_ENV === 'production') {
   delete logOptions.outDir;
 }
 if (Object.keys(logOptions.defines).length === 0) delete logOptions.defines;
+if (Object.keys(logOptions.compilation).length === 0) delete logOptions.compilation;
 if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
 if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
 if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;
@@ -187,8 +190,8 @@ if (logOptions.language === 'en') delete logOptions.language;
 delete logOptions.filename;
 delete logOptions.app;
 delete logOptions.name;
-delete logOptions.google_play_url;
-delete logOptions.app_store_url;
+delete logOptions.googlePlayUrl;
+delete logOptions.appStoreUrl;
 
 console.log(`${name} v${version}`);
 console.log(prettyjson.render(logOptions, {}, 2));

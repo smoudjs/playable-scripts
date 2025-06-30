@@ -6,6 +6,10 @@ declare module '*.gltf';
 declare module '*.fbx';
 declare module '*.obj';
 declare module '*.mp3';
+declare module '*.otf';
+declare module '*.ttf';
+declare module '*.woff';
+declare module '*.woff2';
 
 declare const AD_NETWORK:
   | 'preview'

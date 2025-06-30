@@ -100,9 +100,9 @@ export interface CLIOptions {
   /** Language code for localization */
   language: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
   /** Google Play Store URL for the app */
-  google_play_url: string;
+  googlePlayUrl: string;
   /** App Store URL for the app */
-  app_store_url: string;
+  appStoreUrl: string;
   /** Webpack define plugin configuration */
   defines: Record<string, string>;
 }

@@ -6,8 +6,8 @@ const { options } = require('../options');
 exports.buildDefines = function buildDefines() {
   const defines = {
     __DEV__: JSON.stringify(options['dev'] === undefined ? false : options['dev']),
-    GOOGLE_PLAY_URL: JSON.stringify(options.google_play_url),
-    APP_STORE_URL: JSON.stringify(options.app_store_url),
+    GOOGLE_PLAY_URL: JSON.stringify(options.googlePlayUrl),
+    APP_STORE_URL: JSON.stringify(options.appStoreUrl),
     AD_NETWORK: JSON.stringify(options['network']),
     AD_PROTOCOL: JSON.stringify(options['protocol']),
     APP: JSON.stringify(options.app),

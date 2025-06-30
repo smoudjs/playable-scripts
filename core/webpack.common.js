@@ -13,7 +13,26 @@ if (fs.existsSync(tsConfigPath)) {
 }
 
 /** @type {string[]} List of file extensions that webpack will resolve */
-const allowedExtensions = ['.ts', '.tsx', '.js', '.json', '.png', '.glb', '.fbx', '.obj', '.jpg', '.mp3', '.svg', '.css', '.gif', '.mp4'];
+const allowedExtensions = [
+  '.ts',
+  '.tsx',
+  '.js',
+  '.json',
+  '.png',
+  '.glb',
+  '.fbx',
+  '.obj',
+  '.jpg',
+  '.mp3',
+  '.svg',
+  '.css',
+  '.gif',
+  '.mp4',
+  'woff',
+  'woff2',
+  'ttf',
+  'otf'
+];
 
 /** @type {import('webpack').Configuration} Base webpack configuration used by both development and build configs */
 const webpackConfig = {
@@ -45,24 +64,38 @@ const webpackConfig = {
       // },
       {
         test: /\.ts?$/,
-        loader: 'esbuild-loader',
-        options: {
-          loader: 'tsx',
-          target: 'es2015'
-        },
-        exclude: /node_modules/
+        exclude: /node_modules/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              // presets: ['@babel/preset-env'],
+              plugins:
+                options.compilation.allowTemplateLiterals === false ? ['@babel/plugin-transform-template-literals'] : []
+            }
+          },
+
+          {
+            loader: 'esbuild-loader',
+            options: {
+              loader: 'ts',
+              target: 'es2015'
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
         use: ['style-loader', 'css-loader']
       },
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
+        test: /\.(js|mjs)$/,
+        // exclude: /node_modules/,
         use: {
           loader: 'babel-loader',
           options: {
-            presets: ['@babel/preset-env']
+            // presets: ['@babel/preset-env'],
+            plugins: options.compilation.allowTemplateLiterals === false ? ['@babel/plugin-transform-template-literals'] : []
           }
         }
       },
