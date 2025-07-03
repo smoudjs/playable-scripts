@@ -81,6 +81,9 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
             extractComments: false,
             terserOptions: {
               safari10: true,
+              mangle: {
+                reserved: ['$']
+              },
               compress: {
                 drop_console: true,
                 arrows: false

@@ -28,10 +28,10 @@ const allowedExtensions = [
   '.css',
   '.gif',
   '.mp4',
-  'woff',
-  'woff2',
-  'ttf',
-  'otf'
+  '.woff',
+  '.woff2',
+  '.ttf',
+  '.otf'
 ];
 
 /** @type {import('webpack').Configuration} Base webpack configuration used by both development and build configs */

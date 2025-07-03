@@ -336,7 +336,8 @@ const options = {
   dev: undefined, // Development mode flag
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject
-  defines: {} // Defines options
+  defines: {}, // Defines options
+  compilation: {} // Compilation options
 };
 ```
 
