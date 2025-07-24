@@ -18,7 +18,9 @@ const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
 
 /** @type {AD_NETWORK[]} */
-const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'moloco', 'mintegral'];
+const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral'];
+/** @type {AD_NETWORK[]} */
+const zipOutputAllowedNetworks = ['facebook', 'moloco'];
 
 /**
  * Creates webpack configuration for production build
@@ -47,9 +49,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     return filename;
   }
 
+  const isZipOutput = zipOutputNetworks.includes(adNetwork) || (buildOptions.zip && zipOutputAllowedNetworks.includes(adNetwork));
+
   let htmlFileName = '';
   if (adNetwork === 'mintegral') htmlFileName = `${buildOptions.name}.html`;
-  else if (zipOutputNetworks.includes(adNetwork)) htmlFileName = 'index.html';
+  else if (isZipOutput) htmlFileName = 'index.html';
   else htmlFileName = `${getFileName()}.html`;
 
   const metaTags = {
@@ -122,7 +126,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   webpackConfig.output.path = path.resolve(outDir);
 
-  if (adNetwork !== 'mintegral') webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
+  if (adNetwork !== 'mintegral' && !(isZipOutput && adNetwork === 'facebook' )) webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
 
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
@@ -132,7 +136,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     }
   }
 
-  if (zipOutputNetworks.includes(adNetwork)) {
+  if (isZipOutput) {
     if (adNetwork === 'google') {
       webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
     } else if (adNetwork === 'pangle') {

@@ -74,6 +74,12 @@ const possibleOptions = [
       return rawValue;
     }
   },
+    {
+    name: 'zip',
+    defaultValue: false,
+    hasValue: false,
+    description: 'Should the build be zipped? (only for some ad networks)',
+  },
   {
     name: 'dev',
     hasValue: true,
@@ -178,8 +184,10 @@ let logOptions = { mode: process.env.NODE_ENV, ...options };
 if (process.env.NODE_ENV === 'production') {
   delete logOptions.port;
   delete logOptions.open;
+  if (logOptions.zip === false) delete logOptions.zip;
 } else if (process.env.NODE_ENV === 'development') {
   delete logOptions.outDir;
+  delete logOptions.zip;
 }
 if (Object.keys(logOptions.defines).length === 0) delete logOptions.defines;
 if (Object.keys(logOptions.compilation).length === 0) delete logOptions.compilation;

@@ -135,6 +135,7 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--ts-config`             | Path to tsconfig.json configuration file  | `tsconfig.json`                                           | `--ts-config tsconfig.prod.json` |
 | `--js-config`             | Path to jsconfig.json configuration file  | `jsconfig.json`                                           | `--js-config jsconfig.prod.json` |
 | `--protocol`              | Ad protocol to use                        | `none`                                                    | `--protocol mraid`               |
+| `--zip`                   | ZIP output result                         | `false`                                                   | `--zip`                          |
 | `--port`                  | Development server port number            | `3000`                                                    | `--port 8080`                    |
 | `--open`                  | Open browser automatically                | `false`                                                   | `--open`                         |
 | `--dev`                   | Enable development mode                   | `true` for dev<br>`false` for build                       | `--dev false`                    |
@@ -326,6 +327,7 @@ const options = {
   open: false, // Whether to open browser automatically
   protocol: 'none', // Ad protocol to use (none, mraid, or dapi)
   network: 'preview', // Target Ad network
+  zip: false, // Should the build be zipped? Works only for Ad networks which allows both .zip and .html
   filename: '{app}_{name}_{version}_{date}_{language}_{network}', // Template for output filename
   app: 'AppName', // Application name used in build filename and BUILD_APP define
   name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
