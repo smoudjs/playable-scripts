@@ -175,6 +175,8 @@ playable-scripts build unity
 - `pangle` (PANGLE) - Pangle
 - `mytarget` (MYTARGET) - MyTarget
 - `liftoff` (LIFTOFF) - Liftoff
+- `smadex` (SMADEX) - Smadex
+- `adikteev` (ADIKTEEV) - Adikteev
 
 #### Supported Protocols
 
@@ -182,7 +184,7 @@ playable-scripts build unity
 - `mraid` - Mobile Rich Media Ad Interface Definitions
 - `dapi` - Display Advertising Programming Interface
 
-Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, and AdColony networks.
+Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, Adikteev, and AdColony networks.
 
 ## Build Configuration (build.json)
 
@@ -339,7 +341,33 @@ const options = {
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
   debugger: undefined, // URL of debugger script to inject
   defines: {}, // Defines options
-  compilation: {} // Compilation options
+  compilation: {
+    // Compilation options
+    allowTemplateLiterals: true // Enable or disable template literals in the build
+  },
+  adNetworkNames: {
+    // Mapping of ad network identifiers to their display names in filenames
+    preview: 'Preview',
+    applovin: 'AL',
+    unity: 'UNITY',
+    google: 'GOOGLE',
+    ironsource: 'IS',
+    facebook: 'FB',
+    moloco: 'MOLOCO',
+    adcolony: 'ADCOLONY',
+    mintegral: 'MINTEGRAL',
+    vungle: 'VUNGLE',
+    tapjoy: 'TAPJOY',
+    snapchat: 'SNAPCHAT',
+    tiktok: 'TIKTOK',
+    appreciate: 'APPRECIATE',
+    chartboost: 'CHARTBOOST',
+    pangle: 'PANGLE',
+    mytarget: 'MYTARGET',
+    liftoff: 'LIFTOFF',
+    smadex: 'SMADEX',
+    adikteev: 'ADIKTEEV'
+  }
 };
 ```
 

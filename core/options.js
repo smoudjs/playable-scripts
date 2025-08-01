@@ -74,11 +74,11 @@ const possibleOptions = [
       return rawValue;
     }
   },
-    {
+  {
     name: 'zip',
     defaultValue: false,
     hasValue: false,
-    description: 'Should the build be zipped? (only for some ad networks)',
+    description: 'Should the build be zipped? (only for some ad networks)'
   },
   {
     name: 'dev',
@@ -155,9 +155,9 @@ const possibleOptions = [
 /** @type {import('./index').CLIOptions} */
 const options = parseArgvOptions(possibleOptions);
 
-
 options.defines = {};
 options.compilation = {};
+options.adNetworkNames = {};
 
 try {
   const fileData = fs.readFileSync(path.resolve(options['buildConfig']), 'utf8');
@@ -166,6 +166,7 @@ try {
     for (let key in customOptions) {
       if (key === 'defines') Object.assign(options.defines, customOptions[key]);
       else if (key === 'compilation') Object.assign(options.compilation, customOptions[key]);
+      else if (key === 'adNetworkNames') Object.assign(options.adNetworkNames, customOptions[key]);
       else if (key === 'google_play_url') options.googlePlayUrl = customOptions.google_play_url;
       else if (key === 'app_store_url') options.appStoreUrl = customOptions.app_store_url;
       else {
@@ -181,16 +182,19 @@ try {
 } catch (err) {}
 
 let logOptions = { mode: process.env.NODE_ENV, ...options };
+let isProduction = false;
 if (process.env.NODE_ENV === 'production') {
+  isProduction = true;
   delete logOptions.port;
   delete logOptions.open;
-  if (logOptions.zip === false) delete logOptions.zip;
 } else if (process.env.NODE_ENV === 'development') {
   delete logOptions.outDir;
-  delete logOptions.zip;
 }
+
+if (Object.keys(logOptions.compilation).length === 0 || !isProduction) delete logOptions.compilation;
+if (Object.keys(logOptions.adNetworkNames).length === 0 || !isProduction) delete logOptions.adNetworkNames;
 if (Object.keys(logOptions.defines).length === 0) delete logOptions.defines;
-if (Object.keys(logOptions.compilation).length === 0) delete logOptions.compilation;
+if (logOptions.zip === false || !isProduction) delete logOptions.zip;
 if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
 if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
 if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;

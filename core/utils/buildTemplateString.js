@@ -20,7 +20,9 @@ const adNetworkFileNameMap = {
   chartboost: 'CHARTBOOST',
   pangle: 'PANGLE',
   mytarget: 'MYTARGET',
-  liftoff: 'LIFTOFF'
+  liftoff: 'LIFTOFF',
+  smadex: 'SMADEX',
+  adikteev: 'ADIKTEEV'
 };
 
 /**
@@ -33,7 +35,7 @@ exports.buildTemplateString = function buildTemplateString(template) {
   /** @type {AD_PROTOCOL} */
   const adProtocol = options['protocol'];
 
-  let networkName = adNetworkFileNameMap[adNetwork] || adNetwork;
+  let networkName = options.adNetworkNames[adNetwork] || adNetworkFileNameMap[adNetwork] || adNetwork;
   if (adProtocol === 'dapi') networkName += '_DAPI';
 
   template = template.replaceAll('{app}', options.app);

@@ -17,7 +17,9 @@ const allowedAdNetworks = [
   'chartboost',
   'pangle',
   'mytarget',
-  'liftoff'
+  'liftoff',
+  'smadex',
+  'adikteev'
 ];
 /** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
@@ -32,7 +34,8 @@ const mraidPartners = [
   'chartboost',
   'mytarget',
   'liftoff',
-  'adcolony'
+  'adcolony',
+  'adikteev'
 ];
 
 /** @type {LANGUAGE[]} */

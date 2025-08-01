@@ -29,7 +29,10 @@ declare const AD_NETWORK:
   | 'chartboost'
   | 'pangle'
   | 'mytarget'
-  | 'liftoff';
+  | 'liftoff'
+  | 'smadex'
+  | 'adikteev';
+
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 
 declare const GOOGLE_PLAY_URL: string;

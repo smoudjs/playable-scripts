@@ -82,7 +82,9 @@ export interface CLIOptions {
     | 'chartboost'
     | 'pangle'
     | 'mytarget'
-    | 'liftoff';
+    | 'liftoff'
+    | 'smadex'
+    | 'adikteev';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */
