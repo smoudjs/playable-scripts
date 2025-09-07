@@ -1,7 +1,6 @@
 const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks, allowedLanguages } = require('./utils/parseArgvOptions');
 const path = require('path');
 const fs = require('fs');
-var prettyjson = require('prettyjson');
 const { name, version } = require('../package.json');
 
 const possibleOptions = [
@@ -99,19 +98,19 @@ const possibleOptions = [
     name: 'app',
     defaultValue: 'AppName',
     hasValue: true,
-    description: 'Specifies the application name used in build filename and BUILD_APP define'
+    description: 'Specifies the application name used in build filename and APP define'
   },
   {
     name: 'name',
     defaultValue: 'ConceptName',
     hasValue: true,
-    description: 'Specifies the concept name used in build filename and BUILD_NAME define'
+    description: 'Specifies the concept name used in build filename and NAME define'
   },
   {
     name: 'version',
     defaultValue: 'v1',
     hasValue: true,
-    description: 'Specifies the version name used in build filename and BUILD_VERSION define'
+    description: 'Specifies the version name used in build filename and VERSION define'
   },
   {
     name: 'language',
@@ -181,31 +180,7 @@ try {
   }
 } catch (err) {}
 
-let logOptions = { mode: process.env.NODE_ENV, ...options };
-let isProduction = false;
-if (process.env.NODE_ENV === 'production') {
-  isProduction = true;
-  delete logOptions.port;
-  delete logOptions.open;
-} else if (process.env.NODE_ENV === 'development') {
-  delete logOptions.outDir;
-}
-
-if (Object.keys(logOptions.compilation).length === 0 || !isProduction) delete logOptions.compilation;
-if (Object.keys(logOptions.adNetworkNames).length === 0 || !isProduction) delete logOptions.adNetworkNames;
-if (Object.keys(logOptions.defines).length === 0) delete logOptions.defines;
-if (logOptions.zip === false || !isProduction) delete logOptions.zip;
-if (logOptions.tsConfig === 'tsconfig.json') delete logOptions.tsConfig;
-if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
-if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;
-if (logOptions.language === 'en') delete logOptions.language;
-delete logOptions.filename;
-delete logOptions.app;
-delete logOptions.name;
-delete logOptions.googlePlayUrl;
-delete logOptions.appStoreUrl;
 
 console.log(`${name} v${version}`);
-console.log(prettyjson.render(logOptions, {}, 2));
 
 exports.options = options;

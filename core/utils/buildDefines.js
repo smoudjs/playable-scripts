@@ -17,11 +17,6 @@ exports.buildDefines = function buildDefines() {
     LANGUAGE: JSON.stringify(options.language)
   };
 
-  // For backward compatibility
-  defines.BUILD_APP = defines.APP;
-  defines.BUILD_NAME = defines.NAME;
-  defines.BUILD_VERSION = defines.VERSION;
-
   /** @type {AD_NETWORK} */
   let adNetworkDefine = options['network'];
 

@@ -93,11 +93,11 @@ export interface CLIOptions {
   debugger?: string;
   /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */
   filename: string;
-  /** Application name used in build filename and BUILD_APP define */
+  /** Application name used in build filename and APP define */
   app: string;
-  /** Concept name used in build filename and BUILD_NAME define */
+  /** Concept name used in build filename and NAME define */
   name: string;
-  /** Version name used in build filename and BUILD_VERSION define */
+  /** Version name used in build filename and VERSION define */
   version: string;
   /** Language code for localization */
   language: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';

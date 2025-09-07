@@ -41,10 +41,6 @@ declare const APP: string;
 declare const NAME: string;
 declare const VERSION: string;
 declare const LANGUAGE: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
-
-declare const BUILD_APP: string;
-declare const BUILD_NAME: string;
-declare const BUILD_VERSION: string;
 declare const BUILD_HASH: string;
 
 declare const __DEV__: boolean;

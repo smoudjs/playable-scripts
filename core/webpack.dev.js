@@ -8,6 +8,7 @@ const { DebuggerInjectionPlugin } = require('./plugins/DebuggerInjectionPlugin.j
 const { options } = require('./options.js');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { buildDefines } = require('./utils/buildDefines.js');
+const { logOptions } = require('./utils/logOptions.js');
 
 /**
  * Creates webpack configuration for development
@@ -18,6 +19,7 @@ const { buildDefines } = require('./utils/buildDefines.js');
  */
 function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig) {
   const devOptions = mergeOptions(options, customOptions);
+  logOptions(devOptions)
   customDefines = customDefines || {};
   webpackCustomConfig = webpackCustomConfig || {};
 

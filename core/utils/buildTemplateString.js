@@ -28,21 +28,23 @@ const adNetworkFileNameMap = {
 /**
  * Build's result string from template. Used for outDir or filename
  */
-exports.buildTemplateString = function buildTemplateString(template) {
+exports.buildTemplateString = function buildTemplateString(template, customOptions) {
+  customOptions = customOptions || options;
+
   /** @type {AD_NETWORK} */
-  const adNetwork = options['network'];
+  const adNetwork = customOptions['network'];
 
   /** @type {AD_PROTOCOL} */
-  const adProtocol = options['protocol'];
+  const adProtocol = customOptions['protocol'];
 
-  let networkName = options.adNetworkNames[adNetwork] || adNetworkFileNameMap[adNetwork] || adNetwork;
+  let networkName = customOptions.adNetworkNames[adNetwork] || adNetworkFileNameMap[adNetwork] || adNetwork;
   if (adProtocol === 'dapi') networkName += '_DAPI';
 
-  template = template.replaceAll('{app}', options.app);
-  template = template.replaceAll('{name}', options.name);
-  template = template.replaceAll('{version}', options.version);
+  template = template.replaceAll('{app}', customOptions.app);
+  template = template.replaceAll('{name}', customOptions.name);
+  template = template.replaceAll('{version}', customOptions.version);
   template = template.replaceAll('{date}', getCurrentDateFormatted());
-  template = template.replaceAll('{language}', options.language);
+  template = template.replaceAll('{language}', customOptions.language);
   template = template.replaceAll('{network}', networkName);
   template = template.replaceAll('{hash}', '[fullhash:6]');
 

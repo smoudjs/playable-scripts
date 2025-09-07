@@ -331,9 +331,9 @@ const options = {
   network: 'preview', // Target Ad network
   zip: false, // Should the build be zipped? Works only for Ad networks which allows both .zip and .html
   filename: '{app}_{name}_{version}_{date}_{language}_{network}', // Template for output filename
-  app: 'AppName', // Application name used in build filename and BUILD_APP define
-  name: 'ConceptName', // Concept name used in build filename and BUILD_NAME define
-  version: 'v1', // Version name used in build filename and BUILD_VERSION define
+  app: 'AppName', // Application name used in build filename and APP define
+  name: 'ConceptName', // Concept name used in build filename and NAME define
+  version: 'v1', // Version name used in build filename and VERSION define
   language: 'en', // Language code for localization
   googlePlayUrl: 'https://play.google.com/store/games', // Google Play Store URL
   appStoreUrl: 'https://www.apple.com/app-store/', // App Store URL

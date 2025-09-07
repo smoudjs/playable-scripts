@@ -17,6 +17,7 @@ const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
 const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
+const { logOptions } = require('./utils/logOptions.js');
 
 /** @type {AD_NETWORK[]} */
 const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral', 'adikteev'];
@@ -32,6 +33,7 @@ const zipOutputAllowedNetworks = ['facebook', 'moloco'];
  */
 function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfig) {
   const buildOptions = mergeOptions(options, customOptions);
+  logOptions(buildOptions);
   customDefines = customDefines || {};
   webpackCustomConfig = webpackCustomConfig || {};
 
@@ -41,10 +43,10 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   /** @type {AD_PROTOCOL} */
   const adProtocol = buildOptions['protocol'];
 
-  let outDir = buildTemplateString(buildOptions.outDir);
+  let outDir = buildTemplateString(buildOptions.outDir, buildOptions);
 
   function getFileName() {
-    let filename = buildTemplateString(buildOptions.filename);
+    let filename = buildTemplateString(buildOptions.filename, buildOptions);
 
     if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_').replace('_fullhash_6_', '[fullhash:6]');
     return filename;
@@ -180,24 +182,28 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
  * @param {import('webpack').Configuration} [webpackCustomConfig] - Custom webpack config to merge
  */
 function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConfig) {
-  if (!webpackConfig) webpackConfig = makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfig);
+  return new Promise((resolve, reject) => {
+    if (!webpackConfig) webpackConfig = makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfig);
 
-  const compiler = webpack(webpackConfig);
-  compiler.run((err, stats) => {
-    if (err) {
-      console.error('Build failed:', err.stack || err);
-      if (err.details) {
-        console.error('Error details:', err.details);
+    const compiler = webpack(webpackConfig);
+    compiler.run((err, stats) => {
+      if (err) {
+        console.error('Build failed:', err.stack || err);
+        if (err.details) {
+          console.error('Error details:', err.details);
+        }
+        return reject(err);
       }
-      return;
-    }
 
-    if (stats.hasErrors()) {
-      console.log(stats.compilation.errors);
-      console.error(`Build finished with errors.`);
-    } else {
-      console.log(`Build successful!`);
-    }
+      if (stats.hasErrors()) {
+        console.log(stats.compilation.errors);
+        console.error(`Build finished with errors.`);
+        reject(stats.compilation.errors);
+      } else {
+        console.log(`Build successful!`);
+        resolve();
+      }
+    });
   });
 }
 
