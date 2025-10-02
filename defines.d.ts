@@ -32,7 +32,9 @@ declare const AD_NETWORK:
   | 'mytarget'
   | 'liftoff'
   | 'smadex'
-  | 'adikteev';
+  | 'adikteev'
+  | 'bigabid'
+  | 'inmobi';
 
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 

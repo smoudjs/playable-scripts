@@ -86,7 +86,9 @@ export interface CLIOptions {
     | 'mytarget'
     | 'liftoff'
     | 'smadex'
-    | 'adikteev';
+    | 'adikteev'
+    | 'bigabid'
+    | 'inmobi';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */

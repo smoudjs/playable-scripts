@@ -22,7 +22,9 @@ const adNetworkFileNameMap = {
   mytarget: 'MYTARGET',
   liftoff: 'LIFTOFF',
   smadex: 'SMADEX',
-  adikteev: 'ADIKTEEV'
+  adikteev: 'ADIKTEEV',
+  bigabid: 'BIGABID',
+  inmobi: 'INMOBI'
 };
 
 /**

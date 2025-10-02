@@ -12,6 +12,8 @@ const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.j
 const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
 const { ZipPlugin } = require('./plugins/ZipPlugin.js');
 const { generateAdikteevHtmlWebpackPluginConfig } = require('./utils/generateAdikteevHtmlWebpackPluginConfig.js');
+const { generateBigabidHtmlWebpackPluginConfig } = require('./utils/generateBigabidHtmlWebpackPluginConfig.js');
+const { generateInMobiHtmlWebpackPluginConfig } = require('./utils/generateInMobiHtmlWebpackPluginConfig.js');
 const path = require('path');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
@@ -20,7 +22,7 @@ const { buildTemplateString } = require('./utils/buildTemplateString.js');
 const { logOptions } = require('./utils/logOptions.js');
 
 /** @type {AD_NETWORK[]} */
-const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral', 'adikteev'];
+const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral', 'adikteev', 'bigabid', 'inmobi'];
 /** @type {AD_NETWORK[]} */
 const zipOutputAllowedNetworks = ['facebook', 'moloco'];
 
@@ -76,6 +78,18 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     metaTags['X-UA-Compatible'] = { 'http-equiv': 'X-UA-Compatible', content: 'IE=10' };
   }
 
+  let htmlWebpackPluginConfig = {
+    template: path.resolve('src/index.html'),
+    filename: htmlFileName,
+    title: `${buildOptions.name} - ${buildOptions.app}`,
+    inlineSource: '.(js|css|png|jpg|svg|xml|mp3|gif|glb|fbx|obj)$',
+    meta: metaTags
+  };
+
+  if (adNetwork === 'adikteev') htmlWebpackPluginConfig = generateAdikteevHtmlWebpackPluginConfig('src/index.html');
+  else if (adNetwork === 'bigabid') htmlWebpackPluginConfig = generateBigabidHtmlWebpackPluginConfig('src/index.html');
+  else if (adNetwork === 'inmobi') htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html');
+
   const webpackConfig = merge(
     webpackCommonConfig,
     {
@@ -105,17 +119,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
         ]
       },
       plugins: [
-        new HtmlWebpackPlugin(
-          adNetwork === 'adikteev'
-            ? generateAdikteevHtmlWebpackPluginConfig('src/index.html')
-            : {
-                template: path.resolve('src/index.html'),
-                filename: htmlFileName,
-                title: `${buildOptions.name} - ${buildOptions.app}`,
-                inlineSource: '.(js|css|png|jpg|svg|xml|mp3|gif|glb|fbx|obj)$',
-                meta: metaTags
-              }
-        ),
+        new HtmlWebpackPlugin(htmlWebpackPluginConfig),
 
         new webpack.DefinePlugin({
           ...buildDefines(),
@@ -134,9 +138,14 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   webpackConfig.output.path = path.resolve(outDir);
 
-  if (adNetwork !== 'mintegral' && adNetwork !== 'adikteev' && !(isZipOutput && adNetwork === 'facebook'))
+  if (
+    adNetwork !== 'mintegral' &&
+    adNetwork !== 'adikteev' &&
+    adNetwork !== 'bigabid' &&
+    adNetwork !== 'inmobi' &&
+    !(isZipOutput && adNetwork === 'facebook')
+  )
     webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
-
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
   } else if ('mraid' === adProtocol) {
@@ -169,6 +178,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
     webpackConfig.output.path = path.resolve(outDir, adNetwork);
     if (adNetwork === 'adikteev') webpackConfig.output.filename = 'creative.js';
+    else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
+    else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
   }
 
   return webpackConfig;

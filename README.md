@@ -178,6 +178,8 @@ playable-scripts build unity
 - `liftoff` (LIFTOFF) - Liftoff
 - `smadex` (SMADEX) - Smadex
 - `adikteev` (ADIKTEEV) - Adikteev
+- `bigabid` (BIGABID) - Bigabid
+- `inmobi` (INMOBI) - inMobi
 
 #### Supported Protocols
 
@@ -185,7 +187,7 @@ playable-scripts build unity
 - `mraid` - Mobile Rich Media Ad Interface Definitions
 - `dapi` - Display Advertising Programming Interface
 
-Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, Adikteev, and AdColony networks.
+Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, Adikteev, Bigabid, inMobi and AdColony networks.
 
 ## Build Configuration (build.json)
 
@@ -370,7 +372,9 @@ const options = {
     mytarget: 'MYTARGET',
     liftoff: 'LIFTOFF',
     smadex: 'SMADEX',
-    adikteev: 'ADIKTEEV'
+    adikteev: 'ADIKTEEV',
+    bigabid: 'BIGABID',
+    inmobi: 'INMOBI'
   }
 };
 ```
