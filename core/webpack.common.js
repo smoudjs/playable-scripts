@@ -26,6 +26,7 @@ const allowedExtensions = [
   '.mp3',
   '.svg',
   '.xml',
+  '.atlas',
   '.css',
   '.gif',
   '.mp4',

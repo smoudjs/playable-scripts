@@ -82,7 +82,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     template: path.resolve('src/index.html'),
     filename: htmlFileName,
     title: `${buildOptions.name} - ${buildOptions.app}`,
-    inlineSource: '.(js|css|png|jpg|svg|xml|mp3|gif|glb|fbx|obj)$',
+    inlineSource: '.(js|css|png|jpg|svg|xml|atlas|mp3|gif|glb|fbx|obj)$',
     meta: metaTags
   };
 

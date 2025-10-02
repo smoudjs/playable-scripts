@@ -2,6 +2,7 @@ declare module '*.png';
 declare module '*.jpg';
 declare module '*.svg';
 declare module '*.xml';
+declare module '*.atlas';
 declare module '*.glb';
 declare module '*.gltf';
 declare module '*.fbx';
