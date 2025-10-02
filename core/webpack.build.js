@@ -112,7 +112,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
                 template: path.resolve('src/index.html'),
                 filename: htmlFileName,
                 title: `${buildOptions.name} - ${buildOptions.app}`,
-                inlineSource: '.(js|css|png|jpg|svg|mp3|gif|glb|fbx|obj)$',
+                inlineSource: '.(js|css|png|jpg|svg|xml|mp3|gif|glb|fbx|obj)$',
                 meta: metaTags
               }
         ),
@@ -147,7 +147,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   if (isZipOutput) {
     if (adNetwork === 'google') {
-      webpackConfig.plugins.push(new ExitAPIInjectorPlugin());
+      webpackConfig.plugins.push(new ExitAPIInjectorPlugin(buildOptions.orientation));
     } else if (adNetwork === 'pangle') {
       webpackConfig.plugins.push(new PangleInjectorPlugin());
     } else if (adNetwork === 'mintegral') {

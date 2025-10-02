@@ -9,6 +9,13 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
  * @implements {import('webpack').WebpackPluginInstance}
  */
 class ExitAPIInjectorPlugin {
+  /**
+   * @param {ORIENTATION} orientation - device orientation
+   */
+  constructor(orientation) {
+    this.orientation = orientation;
+  }
+
   apply(compiler) {
     compiler.hooks.compilation.tap('ExitAPIInjectorPlugin', (compilation) => {
       HtmlWebpackPlugin.getHooks(compilation).alterAssetTagGroups.tapAsync('ExitAPIInjectorPlugin', (data, callback) => {
@@ -22,18 +29,30 @@ class ExitAPIInjectorPlugin {
           }
         });
 
+        let width = 320;
+        let height = 480;
+
+        if (this.orientation === 'square') width = 480;
+        else if (this.orientation === 'landscape') {
+          width = 480;
+          height = 320;
+        }
+
         data.headTags.splice(0, 0, {
           tagName: 'meta',
           voidTag: true,
           meta: { plugin: 'html-webpack-plugin' },
-          attributes: { name: 'ad.size', content: 'width=320,height=480' }
+          attributes: { name: 'ad.size', content: `width=${width},height=${height}` }
         });
 
         data.headTags.splice(0, 0, {
           tagName: 'meta',
           voidTag: true,
           meta: { plugin: 'html-webpack-plugin' },
-          attributes: { name: 'ad.orientation', content: 'portrait,landscape' }
+          attributes: {
+            name: 'ad.orientation',
+            content: this.orientation === 'both' || this.orientation === 'square' ? 'portrait,landscape' : this.orientation
+          }
         });
 
         callback(null, data);

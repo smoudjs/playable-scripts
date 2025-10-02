@@ -41,6 +41,9 @@ const mraidPartners = [
 /** @type {LANGUAGE[]} */
 const allowedLanguages = ['auto', 'en', 'es', 'zh', 'hi', 'ar', 'fr', 'de', 'ja', 'pt'];
 
+/** @type {ORIENTATION[]} */
+const allowedOrientations = ['both', 'portrait', 'landscape', 'square'];
+
 /**
  * Parses command line arguments based on provided options configuration
  * @param {import('../index').CLIOptionConfig[]} posiibleOptions - Array of possible options to parse
@@ -90,3 +93,4 @@ exports.allowedAdNetworks = allowedAdNetworks;
 exports.allowedAdProtocols = allowedAdProtocols;
 exports.mraidPartners = mraidPartners;
 exports.allowedLanguages = allowedLanguages;
+exports.allowedOrientations = allowedOrientations;

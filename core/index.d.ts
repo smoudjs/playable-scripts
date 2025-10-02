@@ -45,6 +45,8 @@ export interface DefinesOptions {
   BUILD_HASH: string;
   /** Current language code */
   LANGUAGE: string;
+  /** Current orientation identifier */
+  ORIENTATION: 'both' | 'portrait' | 'landscape' | 'square';
 }
 
 /** CLI configuration options */
@@ -101,6 +103,8 @@ export interface CLIOptions {
   version: string;
   /** Language code for localization */
   language: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
+  /** Orientation identifier */
+  orientation: 'both' | 'portrait' | 'landscape' | 'square';
   /** Google Play Store URL for the app */
   googlePlayUrl: string;
   /** App Store URL for the app */

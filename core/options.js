@@ -1,4 +1,4 @@
-const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks, allowedLanguages } = require('./utils/parseArgvOptions');
+const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks, allowedOrientations } = require('./utils/parseArgvOptions');
 const path = require('path');
 const fs = require('fs');
 const { name, version } = require('../package.json');
@@ -120,6 +120,18 @@ const possibleOptions = [
     parser: function (rawValue) {
       if (!allowedLanguages.includes(rawValue)) {
         throw new Error(`--platform should have one of the value: ${allowedLanguages.join(', ')}`);
+      }
+      return rawValue;
+    }
+  },
+{
+    name: 'orientation',
+    defaultValue: 'both',
+    hasValue: true,
+    description: 'Specifies the ad orientation used in ORIENTATION define and some network specific configurations',
+    parser: function (rawValue) {
+      if (!allowedOrientations.includes(rawValue)) {
+        throw new Error(`--orientation should have one of the value: ${allowedOrientations.join(', ')}`);
       }
       return rawValue;
     }

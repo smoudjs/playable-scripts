@@ -144,6 +144,7 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--name`                  | Concept name                              | [See Build Configuration](#build-configuration-buildjson) | `--name Concept1`                |
 | `--version`               | Build version                             | [See Build Configuration](#build-configuration-buildjson) | `--version v2.1`                 |
 | `--language`              | Language code                             | [See Build Configuration](#build-configuration-buildjson) | `--language fr`                  |
+| `--orientation`           | Orientation identifier                    | [See Build Configuration](#build-configuration-buildjson) | `--orientation portrait`         |
 | `--skip-recommended-meta` | Skip recommended meta tags injection      | -                                                         | `--skip-recommended-meta`        |
 | `--debugger`              | URL of debugger script to inject          | -                                                         | `--debugger http://...`          |
 
@@ -215,6 +216,7 @@ The `outDir` and `filename` templates supports the following variables:
 - `{version}` - Build version
 - `{date}` - Current date
 - `{language}` - Language code
+- `{orientation}` - Orientation identifier
 - `{network}` - Target ad network
 - `{hash}` - Unique build identifier
 
@@ -233,6 +235,7 @@ The following global defines are automatically available in your code during dev
 | `NAME`            | Build name constant                      | `"ConceptName"`                      |
 | `VERSION`         | Build version constant                   | `"v1"`                               |
 | `LANGUAGE`        | Current language code                    | `"en"`, `"es"`, etc.                 |
+| `ORIENTATION`     | Current orientation identifier           | `"both"`, `"portrait"`, etc.         |
 | `BUILD_HASH`      | Unique build hash                        | `"a1b2c3d4"`                         |
 
 These defines can be used in your code for conditional logic:
@@ -335,6 +338,7 @@ const options = {
   name: 'ConceptName', // Concept name used in build filename and NAME define
   version: 'v1', // Version name used in build filename and VERSION define
   language: 'en', // Language code for localization
+  orientation: 'both', // Orientation identifier. Adaptive design, which supports both orientations - is preferred
   googlePlayUrl: 'https://play.google.com/store/games', // Google Play Store URL
   appStoreUrl: 'https://www.apple.com/app-store/', // App Store URL
   dev: undefined, // Development mode flag

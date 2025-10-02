@@ -14,7 +14,8 @@ exports.buildDefines = function buildDefines() {
     NAME: JSON.stringify(options.name),
     VERSION: JSON.stringify(options.version),
     BUILD_HASH: JSON.stringify((+new Date()).toString(36)),
-    LANGUAGE: JSON.stringify(options.language)
+    LANGUAGE: JSON.stringify(options.language),
+    ORIENTATION: JSON.stringify(options.orientation)
   };
 
   /** @type {AD_NETWORK} */

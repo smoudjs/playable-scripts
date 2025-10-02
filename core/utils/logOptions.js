@@ -22,6 +22,7 @@ exports.logOptions = function logOptions(options) {
   if (logOptions.jsConfig === 'jsconfig.json') delete logOptions.jsConfig;
   if (logOptions.buildConfig === 'build.json') delete logOptions.buildConfig;
   if (logOptions.language === 'en') delete logOptions.language;
+  if (logOptions.orientation === 'both') delete logOptions.orientation;
   delete logOptions.filename;
   delete logOptions.app;
   delete logOptions.name;

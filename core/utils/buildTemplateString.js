@@ -45,6 +45,7 @@ exports.buildTemplateString = function buildTemplateString(template, customOptio
   template = template.replaceAll('{version}', customOptions.version);
   template = template.replaceAll('{date}', getCurrentDateFormatted());
   template = template.replaceAll('{language}', customOptions.language);
+  template = template.replaceAll('{orientation}', customOptions.orientation);
   template = template.replaceAll('{network}', networkName);
   template = template.replaceAll('{hash}', '[fullhash:6]');
 

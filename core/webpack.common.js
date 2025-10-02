@@ -25,6 +25,7 @@ const allowedExtensions = [
   '.jpg',
   '.mp3',
   '.svg',
+  '.xml',
   '.css',
   '.gif',
   '.mp4',
