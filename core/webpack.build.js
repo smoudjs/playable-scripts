@@ -88,7 +88,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
 
   if (adNetwork === 'adikteev') htmlWebpackPluginConfig = generateAdikteevHtmlWebpackPluginConfig('src/index.html');
   else if (adNetwork === 'bigabid') htmlWebpackPluginConfig = generateBigabidHtmlWebpackPluginConfig('src/index.html');
-  else if (adNetwork === 'inmobi') htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html');
+  else if (adNetwork === 'inmobi') htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html', buildOptions);
 
   const webpackConfig = merge(
     webpackCommonConfig,

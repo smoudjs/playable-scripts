@@ -8,7 +8,7 @@ const InMobiPlaceholders = `<script>
     "First_Engagement": ["$P_FIRST_ENGAGEMENT"],
     "Gameplay_Complete": ["$P_GAMEPLAY_DONE"],
     "DSP_Click": ["$HTML_ESC_CLICK_URL"],
-    "LandingPage_URL": [/android/i.test(navigator.userAgent) ? GOOGLE_PLAY_URL : APP_STORE_URL],
+    "LandingPage_URL": [/android/i.test(navigator.userAgent) ? "{GOOGLE_PLAY_URL}" : "{APP_STORE_URL}"],
     "Spent_5_Seconds": ["$P_TIMESPENT_5"],
     "Spent_10_Seconds": ["$P_TIMESPENT_10"],
     "Spent_15_Seconds": ["$P_TIMESPENT_15"],
@@ -19,9 +19,16 @@ const InMobiPlaceholders = `<script>
 </script>
 <script src="mraid.js"></script>`;
 
-exports.generateInMobiHtmlWebpackPluginConfig = function generateInMobiHtmlWebpackPluginConfig(originalHtmlContentPath) {
+exports.generateInMobiHtmlWebpackPluginConfig = function generateInMobiHtmlWebpackPluginConfig(
+  originalHtmlContentPath,
+  buildOptions
+) {
   originalHtmlContentPath = originalHtmlContentPath || 'src/index.html';
   let originalBody = '';
+  const placeholder = InMobiPlaceholders.replaceAll('{GOOGLE_PLAY_URL}', buildOptions.googlePlayUrl).replaceAll(
+    '{APP_STORE_URL}',
+    buildOptions.appStoreUrl
+  );
 
   try {
     const content = fs.readFileSync(path.resolve(originalHtmlContentPath), 'utf8');
@@ -39,7 +46,7 @@ exports.generateInMobiHtmlWebpackPluginConfig = function generateInMobiHtmlWebpa
     inject: false,
     minify: false,
     templateContent: ({ htmlWebpackPlugin }) => {
-      return [InMobiPlaceholders, htmlWebpackPlugin.tags.headTags, originalBody].join('\n');
+      return [placeholder, htmlWebpackPlugin.tags.headTags, originalBody].join('\n');
     }
   };
 };
