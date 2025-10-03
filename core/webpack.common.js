@@ -106,8 +106,17 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml|atlas|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
+        test: /\.(gif|png|jpe?g|svg|xml|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
         type: 'asset/inline'
+      },
+      {
+        test: /\.atlas$/,
+        type: 'asset/inline',
+        generator: {
+          dataUrl: (content) => {
+            return `data:text/atlas;base64,${content.toString('base64')}`;
+          }
+        }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
