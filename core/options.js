@@ -1,4 +1,10 @@
-const { parseArgvOptions, allowedAdProtocols, allowedAdNetworks, allowedOrientations } = require('./utils/parseArgvOptions');
+const {
+  parseArgvOptions,
+  allowedAdProtocols,
+  allowedAdNetworks,
+  allowedOrientations,
+  allowedLanguages
+} = require('./utils/parseArgvOptions');
 const path = require('path');
 const fs = require('fs');
 const { name, version } = require('../package.json');
@@ -124,7 +130,7 @@ const possibleOptions = [
       return rawValue;
     }
   },
-{
+  {
     name: 'orientation',
     defaultValue: 'both',
     hasValue: true,
@@ -191,7 +197,6 @@ try {
     console.log(chalk.red('Build config parsing error: ' + err.message));
   }
 } catch (err) {}
-
 
 console.log(`${name} v${version}`);
 
