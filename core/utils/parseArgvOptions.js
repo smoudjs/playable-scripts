@@ -32,7 +32,6 @@ const mraidPartners = [
   'applovin',
   'unity',
   'appreciate',
-  'snapchat',
   'chartboost',
   'mytarget',
   'liftoff',
