@@ -23,6 +23,7 @@ const allowedExtensions = [
   '.fbx',
   '.obj',
   '.jpg',
+  '.webp',
   '.mp3',
   '.svg',
   '.xml',
@@ -106,7 +107,7 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|svg|xml|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
+        test: /\.(gif|png|jpe?g|webp|svg|xml|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
         type: 'asset/inline'
       },
       {

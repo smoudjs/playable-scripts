@@ -22,7 +22,18 @@ const { buildTemplateString } = require('./utils/buildTemplateString.js');
 const { logOptions } = require('./utils/logOptions.js');
 
 /** @type {AD_NETWORK[]} */
-const zipOutputNetworks = ['google', 'pangle', 'tiktok', 'vungle', 'mytarget', 'mintegral', 'adikteev', 'bigabid', 'inmobi'];
+const zipOutputNetworks = [
+  'google',
+  'pangle',
+  'tiktok',
+  'vungle',
+  'mytarget',
+  'mintegral',
+  'adikteev',
+  'bigabid',
+  'inmobi',
+  'snapchat'
+];
 /** @type {AD_NETWORK[]} */
 const zipOutputAllowedNetworks = ['facebook', 'moloco'];
 
@@ -82,13 +93,14 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     template: path.resolve('src/index.html'),
     filename: htmlFileName,
     title: `${buildOptions.name} - ${buildOptions.app}`,
-    inlineSource: '.(js|css|png|jpg|svg|xml|atlas|mp3|gif|glb|fbx|obj)$',
+    inlineSource: '.(js|css|png|jpg|webp|svg|xml|atlas|mp3|gif|glb|fbx|obj)$',
     meta: metaTags
   };
 
   if (adNetwork === 'adikteev') htmlWebpackPluginConfig = generateAdikteevHtmlWebpackPluginConfig('src/index.html');
   else if (adNetwork === 'bigabid') htmlWebpackPluginConfig = generateBigabidHtmlWebpackPluginConfig('src/index.html');
-  else if (adNetwork === 'inmobi') htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html', buildOptions);
+  else if (adNetwork === 'inmobi')
+    htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html', buildOptions);
 
   const webpackConfig = merge(
     webpackCommonConfig,
@@ -165,6 +177,12 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       webpackConfig.plugins.push(
         new CopyWebpackPlugin({
           patterns: [{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }]
+        })
+      );
+    } else if (adNetwork === 'snapchat') {
+      webpackConfig.plugins.push(
+        new CopyWebpackPlugin({
+          patterns: [{ from: path.join(__dirname, 'resources', 'snapchat-config.json'), to: 'config.json' }]
         })
       );
     }
