@@ -1,6 +1,6 @@
 {
   "name": "@smoud/playable-scripts",
-  "version": "1.0.40",
+  "version": "1.1.0",
   "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
   "main": "core/index.js",
   "module": "core/index.js",

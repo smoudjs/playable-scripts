@@ -107,8 +107,12 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|webp|svg|xml|mp3|m4a|ogg|wav|json|glb|fbx|obj$)$/i,
+        test: /\.(gif|png|jpe?g|webp|mp3|m4a|ogg|wav|glb|fbx|obj)$/i,
         type: 'asset/inline'
+      },
+      {
+        test: /\.(svg|xml|json)$/i,
+        type: 'asset/source'
       },
       {
         test: /\.atlas$/,
