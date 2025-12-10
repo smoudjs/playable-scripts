@@ -107,7 +107,7 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|webp|mp3|m4a|ogg|wav|glb|fbx|obj)$/i,
+        test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj)$/i,
         type: 'asset/inline'
       },
       {
