@@ -15,6 +15,7 @@ const { generateAdikteevHtmlWebpackPluginConfig } = require('./utils/generateAdi
 const { generateBigabidHtmlWebpackPluginConfig } = require('./utils/generateBigabidHtmlWebpackPluginConfig.js');
 const { generateInMobiHtmlWebpackPluginConfig } = require('./utils/generateInMobiHtmlWebpackPluginConfig.js');
 const path = require('path');
+const fs = require('fs');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
 const { buildDefines } = require('./utils/buildDefines.js');
@@ -215,6 +216,10 @@ function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConf
     if (!webpackConfig) webpackConfig = makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfig);
 
     const compiler = webpack(webpackConfig);
+
+    // Check if ZipPlugin is used
+    const hasZipPlugin = webpackConfig.plugins?.some((plugin) => plugin instanceof ZipPlugin);
+
     compiler.run((err, stats) => {
       if (err) {
         console.error('Build failed:', err.stack || err);
@@ -229,6 +234,15 @@ function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConf
         console.error(`Build finished with errors.`);
         reject(stats.compilation.errors);
       } else {
+        // Clean up temporary folder if ZipPlugin was used
+        if (hasZipPlugin && webpackConfig.output.path) {
+          try {
+            fs.rmSync(webpackConfig.output.path, { recursive: true, force: true });
+          } catch (cleanupErr) {
+            console.warn(`Warning: Could not clean up temporary folder:`, cleanupErr.message);
+          }
+        }
+        
         console.log(`Build successful!`);
         resolve();
       }
