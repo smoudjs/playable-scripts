@@ -28,6 +28,7 @@ exports.logOptions = function logOptions(options) {
   delete logOptions.name;
   delete logOptions.googlePlayUrl;
   delete logOptions.appStoreUrl;
+  delete logOptions.dropConsole;
 
   console.log(prettyjson.render(logOptions, {}, 2));
 };

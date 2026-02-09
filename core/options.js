@@ -163,6 +163,18 @@ const possibleOptions = [
     description: "Don't inject recommended for playable ads META tags"
   },
   {
+    name: 'drop-console',
+    alias: 'dropConsole',
+    hasValue: true,
+    defaultValue: true,
+    description: 'Drop console.log, console.warn, and console.info for a production build',
+    parser: function (rawValue) {
+      if (!(rawValue === 'true' || rawValue === 'false'))
+        throw new Error('--drop-console should have either true or false value');
+      return rawValue === 'true';
+    }
+  },
+  {
     name: 'debugger',
     hasValue: true,
     description: 'URL of debugger script to inject into code'
@@ -173,7 +185,11 @@ const possibleOptions = [
 const options = parseArgvOptions(possibleOptions);
 
 options.defines = {};
-options.compilation = {};
+// We should keep compilation.length 0 - to avoid extra logging with logOptions
+options.compilation = {
+  // allowTemplateLiterals: true,
+  // dropConsole: true
+};
 options.adNetworkNames = {};
 
 try {
@@ -184,6 +200,7 @@ try {
       if (key === 'defines') Object.assign(options.defines, customOptions[key]);
       else if (key === 'compilation') Object.assign(options.compilation, customOptions[key]);
       else if (key === 'adNetworkNames') Object.assign(options.adNetworkNames, customOptions[key]);
+      // For backward cmpatability
       else if (key === 'google_play_url') options.googlePlayUrl = customOptions.google_play_url;
       else if (key === 'app_store_url') options.appStoreUrl = customOptions.app_store_url;
       else {
@@ -197,6 +214,9 @@ try {
     console.log(chalk.red('Build config parsing error: ' + err.message));
   }
 } catch (err) {}
+
+// Re-assigning dropConsole with a correct place
+if (options.dropConsole === false) options.compilation.dropConsole = false;
 
 console.log(`${name} v${version}`);
 

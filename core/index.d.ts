@@ -93,6 +93,9 @@ export interface CLIOptions {
   dev: boolean;
   /** Skip recommended meta tags injection */
   skipRecommendedMeta?: boolean;
+  /** Drop console.log, console.warn, and console.info for a production build */
+  // TODO: remove it later as this is part of compilation after CLI parse
+  //dropConsole: boolean;
   /** URL of debugger script to inject */
   debugger?: string;
   /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */

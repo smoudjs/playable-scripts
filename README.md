@@ -146,6 +146,7 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--language`              | Language code                             | [See Build Configuration](#build-configuration-buildjson) | `--language fr`                  |
 | `--orientation`           | Orientation identifier                    | [See Build Configuration](#build-configuration-buildjson) | `--orientation portrait`         |
 | `--skip-recommended-meta` | Skip recommended meta tags injection      | -                                                         | `--skip-recommended-meta`        |
+| `--drop-console`          | Drop console logging on production        | `true`                                                    | `--drop-console false`           |
 | `--debugger`              | URL of debugger script to inject          | -                                                         | `--debugger http://...`          |
 
 #### Target Ad Network
@@ -349,7 +350,8 @@ const options = {
   defines: {}, // Defines options
   compilation: {
     // Compilation options
-    allowTemplateLiterals: true // Enable or disable template literals in the build
+    allowTemplateLiterals: true, // Enable or disable template literals in the build
+    dropConsole: true // Drop console.log, console.warn, and console.info for a production build
   },
   adNetworkNames: {
     // Mapping of ad network identifiers to their display names in filenames

@@ -119,7 +119,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
                 reserved: ['$']
               },
               compress: {
-                drop_console: true,
+                drop_console: buildOptions.compilation.dropConsole !== false,
                 arrows: false
               },
               output: {
