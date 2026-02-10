@@ -18,13 +18,5 @@ exports.buildDefines = function buildDefines() {
     ORIENTATION: JSON.stringify(options.orientation)
   };
 
-  /** @type {AD_NETWORK} */
-  let adNetworkDefine = options['network'];
-
-  if (adNetworkDefine === 'pangle') adNetworkDefine = 'tiktok';
-  if (adNetworkDefine === 'mytarget' || adNetworkDefine === 'moloco') adNetworkDefine = 'facebook';
-
-  defines['AD_NETWORK'] = JSON.stringify(adNetworkDefine);
-
   return defines;
 };
