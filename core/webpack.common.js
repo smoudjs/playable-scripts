@@ -28,6 +28,7 @@ const allowedExtensions = [
   '.svg',
   '.xml',
   '.atlas',
+  '.skel',
   '.css',
   '.gif',
   '.mp4',
@@ -107,21 +108,12 @@ const webpackConfig = {
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
       },
       {
-        test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj)$/i,
+        test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj|skel)$/i,
         type: 'asset/inline'
       },
       {
-        test: /\.(svg|xml|json)$/i,
+        test: /\.(svg|xml|json|atlas)$/i,
         type: 'asset/source'
-      },
-      {
-        test: /\.atlas$/,
-        type: 'asset/inline',
-        generator: {
-          dataUrl: (content) => {
-            return `data:text/atlas;base64,${content.toString('base64')}`;
-          }
-        }
       },
       {
         test: /\.(woff|woff2|eot|ttf|otf)$/i,
