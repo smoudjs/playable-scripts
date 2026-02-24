@@ -38,6 +38,10 @@ const zipOutputNetworks = [
 /** @type {AD_NETWORK[]} */
 const zipOutputAllowedNetworks = ['facebook', 'moloco'];
 
+function normalizeString(str) {
+  return str.replace(/[^a-zA-Z0-9]/g, '_');
+}
+
 /**
  * Creates webpack configuration for production build
  * @param {Partial<import('./index').CLIOptions>} [customOptions] - Custom options to merge with default options
@@ -62,7 +66,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   function getFileName() {
     let filename = buildTemplateString(buildOptions.filename, buildOptions);
 
-    if (adNetwork === 'mintegral') return filename.replace(/[^a-zA-Z0-9]/g, '_').replace('_fullhash_6_', '[fullhash:6]');
+    if (adNetwork === 'mintegral') return normalizeString(filename).replace('_fullhash_6_', '[fullhash:6]');
     return filename;
   }
 
@@ -70,7 +74,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     zipOutputNetworks.includes(adNetwork) || (buildOptions.zip && zipOutputAllowedNetworks.includes(adNetwork));
 
   let htmlFileName = '';
-  if (adNetwork === 'mintegral') htmlFileName = `${buildOptions.name}.html`;
+  if (adNetwork === 'mintegral') htmlFileName = `${normalizeString(buildOptions.name)}.html`;
   else if (isZipOutput) htmlFileName = 'index.html';
   else htmlFileName = `${getFileName()}.html`;
 
@@ -242,7 +246,7 @@ function runBuild(webpackConfig, customOptions, customDefines, webpackCustomConf
             console.warn(`Warning: Could not clean up temporary folder:`, cleanupErr.message);
           }
         }
-        
+
         console.log(`Build successful!`);
         resolve();
       }
