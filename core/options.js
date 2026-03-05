@@ -125,7 +125,7 @@ const possibleOptions = [
     description: 'Specifies the language of the build used in LANGUAGE define',
     parser: function (rawValue) {
       if (!allowedLanguages.includes(rawValue)) {
-        throw new Error(`--platform should have one of the value: ${allowedLanguages.join(', ')}`);
+        throw new Error(`--language should have one of the value: ${allowedLanguages.join(', ')}`);
       }
       return rawValue;
     }

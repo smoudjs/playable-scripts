@@ -42,7 +42,25 @@ const mraidPartners = [
 ];
 
 /** @type {LANGUAGE[]} */
-const allowedLanguages = ['auto', 'en', 'es', 'zh', 'hi', 'ar', 'fr', 'de', 'ja', 'pt'];
+const allowedLanguages = [
+  'auto',
+  'en',
+  'es',
+  'zh',
+  'hi',
+  'ar',
+  'fr',
+  'de',
+  'ja',
+  'pt',
+  'uk',
+  'it',
+  'tr',
+  'ko',
+  'nl',
+  'pl',
+  'th'
+];
 
 /** @type {ORIENTATION[]} */
 const allowedOrientations = ['both', 'portrait', 'landscape', 'square'];

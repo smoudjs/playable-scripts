@@ -107,7 +107,24 @@ export interface CLIOptions {
   /** Version name used in build filename and VERSION define */
   version: string;
   /** Language code for localization */
-  language: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
+  language:
+    | 'auto'
+    | 'en'
+    | 'es'
+    | 'zh'
+    | 'hi'
+    | 'ar'
+    | 'fr'
+    | 'de'
+    | 'ja'
+    | 'pt'
+    | 'uk'
+    | 'it'
+    | 'tr'
+    | 'ko'
+    | 'nl'
+    | 'pl'
+    | 'th';
   /** Orientation identifier */
   orientation: 'both' | 'portrait' | 'landscape' | 'square';
   /** Google Play Store URL for the app */

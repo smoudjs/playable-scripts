@@ -14,7 +14,7 @@ declare module '*.otf';
 declare module '*.ttf';
 declare module '*.woff';
 declare module '*.woff2';
- 
+
 declare const AD_NETWORK:
   | 'preview'
   | 'applovin'
@@ -46,7 +46,24 @@ declare const APP_STORE_URL: string;
 declare const APP: string;
 declare const NAME: string;
 declare const VERSION: string;
-declare const LANGUAGE: 'auto' | 'en' | 'es' | 'zh' | 'hi' | 'ar' | 'fr' | 'de' | 'ja' | 'pt';
+declare const LANGUAGE:
+  | 'auto'
+  | 'en'
+  | 'es'
+  | 'zh'
+  | 'hi'
+  | 'ar'
+  | 'fr'
+  | 'de'
+  | 'ja'
+  | 'pt'
+  | 'uk'
+  | 'it'
+  | 'tr'
+  | 'ko'
+  | 'nl'
+  | 'pl'
+  | 'th';
 declare const ORIENTATION: 'both' | 'portrait' | 'landscape' | 'square';
 declare const BUILD_HASH: string;
 
