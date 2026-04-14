@@ -33,7 +33,8 @@ const zipOutputNetworks = [
   'adikteev',
   'bigabid',
   'inmobi',
-  'snapchat'
+  'snapchat',
+  'liftoff'
 ];
 /** @type {AD_NETWORK[]} */
 const zipOutputAllowedNetworks = ['facebook', 'moloco'];
