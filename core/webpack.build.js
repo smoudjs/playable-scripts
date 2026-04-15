@@ -200,7 +200,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       })
     );
 
-    webpackConfig.output.path = path.resolve(outDir, adNetwork);
+    const tmpId = Math.floor(Math.random() * 1e8);
+    webpackConfig.output.path = path.resolve(outDir, `${adNetwork}_${tmpId}`);
     if (adNetwork === 'adikteev') webpackConfig.output.filename = 'creative.js';
     else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
