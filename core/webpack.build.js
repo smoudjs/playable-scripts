@@ -21,6 +21,7 @@ const { options } = require('./options.js');
 const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
 const { logOptions } = require('./utils/logOptions.js');
+const { inlineAssetRules, fileAssetRules } = require('./utils/moduleRules.js');
 
 /** @type {AD_NETWORK[]} */
 const zipOutputNetworks = [
@@ -70,6 +71,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     if (adNetwork === 'mintegral') return normalizeString(filename).replace('_fullhash_6_', '[fullhash:6]');
     return filename;
   }
+
+  let moduleRules = inlineAssetRules;
 
   const isZipOutput =
     zipOutputNetworks.includes(adNetwork) || (buildOptions.zip && zipOutputAllowedNetworks.includes(adNetwork));
@@ -205,7 +208,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     if (adNetwork === 'adikteev') webpackConfig.output.filename = 'creative.js';
     else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
+
+    if (adNetwork === 'liftoff') moduleRules = fileAssetRules;
   }
+
+  webpackConfig.module.rules.push(...moduleRules);
 
   return webpackConfig;
 }

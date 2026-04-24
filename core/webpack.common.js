@@ -106,18 +106,6 @@ const webpackConfig = {
       {
         test: /\.(gltf)$/,
         loader: path.join(__dirname, 'loaders/gltf-loader.js')
-      },
-      {
-        test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj|skel)$/i,
-        type: 'asset/inline'
-      },
-      {
-        test: /\.(svg|xml|json|atlas)$/i,
-        type: 'asset/source'
-      },
-      {
-        test: /\.(woff|woff2|eot|ttf|otf)$/i,
-        type: 'asset/inline'
       }
     ]
   },

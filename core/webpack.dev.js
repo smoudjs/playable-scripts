@@ -9,6 +9,7 @@ const { options } = require('./options.js');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { buildDefines } = require('./utils/buildDefines.js');
 const { logOptions } = require('./utils/logOptions.js');
+const { inlineAssetRules } = require('./utils/moduleRules.js');
 
 /**
  * Creates webpack configuration for development
@@ -19,7 +20,7 @@ const { logOptions } = require('./utils/logOptions.js');
  */
 function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig) {
   const devOptions = mergeOptions(options, customOptions);
-  logOptions(devOptions)
+  logOptions(devOptions);
   customDefines = customDefines || {};
   webpackCustomConfig = webpackCustomConfig || {};
 
@@ -57,6 +58,8 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
     },
     webpackCustomConfig
   );
+
+  webpackConfig.module.rules.push(...inlineAssetRules);
 
   if (devOptions['debugger']) {
     webpackConfig.plugins.push(new DebuggerInjectionPlugin(devOptions['debugger']));
