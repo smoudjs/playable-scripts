@@ -170,7 +170,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
   } else if ('mraid' === adProtocol) {
-    if (adNetwork === 'ironsource') {
+    if (adNetwork === 'ironsource' || adNetwork == 'unity') {
       webpackConfig.plugins.push(new MRAIDInjectorPlugin());
     }
   }
