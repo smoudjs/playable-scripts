@@ -21,7 +21,7 @@ const { options } = require('./options.js');
 const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
 const { logOptions } = require('./utils/logOptions.js');
-const { inlineAssetRules, fileAssetRules } = require('./utils/moduleRules.js');
+const { inlineAssetRules, inlineExceptFontsAssetRules } = require('./utils/moduleRules.js');
 
 /** @type {AD_NETWORK[]} */
 const zipOutputNetworks = [
@@ -209,7 +209,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
 
-    if (adNetwork === 'liftoff') moduleRules = fileAssetRules;
+    if (adNetwork === 'liftoff') {
+      moduleRules = inlineExceptFontsAssetRules;
+      webpackConfig.output.publicPath = '';
+      webpackConfig.output.assetModuleFilename = '[name].[hash][ext]';
+    }
   }
 
   webpackConfig.module.rules.push(...moduleRules);
