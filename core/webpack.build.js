@@ -10,6 +10,7 @@ const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
 const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
 const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.js');
 const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
+const { VungleLegacyRuntimePlugin } = require('./plugins/VungleLegacyRuntimePlugin.js');
 const { ZipPlugin } = require('./plugins/ZipPlugin.js');
 const { generateAdikteevHtmlWebpackPluginConfig } = require('./utils/generateAdikteevHtmlWebpackPluginConfig.js');
 const { generateBigabidHtmlWebpackPluginConfig } = require('./utils/generateBigabidHtmlWebpackPluginConfig.js');
@@ -182,6 +183,8 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       webpackConfig.plugins.push(new PangleInjectorPlugin());
     } else if (adNetwork === 'mintegral') {
       webpackConfig.plugins.push(new MintegralInjectorPlugin());
+    } else if (adNetwork === 'vungle') {
+      webpackConfig.plugins.push(new VungleLegacyRuntimePlugin());
     } else if (adNetwork === 'tiktok') {
       webpackConfig.plugins.push(
         new CopyWebpackPlugin({
