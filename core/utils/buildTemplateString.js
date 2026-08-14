@@ -24,7 +24,8 @@ const adNetworkFileNameMap = {
   smadex: 'SMADEX',
   adikteev: 'ADIKTEEV',
   bigabid: 'BIGABID',
-  inmobi: 'INMOBI'
+  inmobi: 'INMOBI',
+  remerge: 'REMERGE'
 };
 
 /**

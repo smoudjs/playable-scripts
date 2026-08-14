@@ -88,7 +88,8 @@ export interface CLIOptions {
     | 'smadex'
     | 'adikteev'
     | 'bigabid'
-    | 'inmobi';
+    | 'inmobi'
+    | 'remerge';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */

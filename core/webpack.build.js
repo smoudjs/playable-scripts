@@ -15,6 +15,7 @@ const { ZipPlugin } = require('./plugins/ZipPlugin.js');
 const { generateAdikteevHtmlWebpackPluginConfig } = require('./utils/generateAdikteevHtmlWebpackPluginConfig.js');
 const { generateBigabidHtmlWebpackPluginConfig } = require('./utils/generateBigabidHtmlWebpackPluginConfig.js');
 const { generateInMobiHtmlWebpackPluginConfig } = require('./utils/generateInMobiHtmlWebpackPluginConfig.js');
+const { generateRemergeHtmlWebpackPluginConfig } = require('./utils/generateRemergeHtmlWebpackPluginConfig.js');
 const path = require('path');
 const fs = require('fs');
 const { mergeOptions } = require('./utils/mergeOptions.js');
@@ -35,6 +36,7 @@ const zipOutputNetworks = [
   'adikteev',
   'bigabid',
   'inmobi',
+  'remerge',
   'snapchat',
   'liftoff'
 ];
@@ -111,6 +113,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
   else if (adNetwork === 'bigabid') htmlWebpackPluginConfig = generateBigabidHtmlWebpackPluginConfig('src/index.html');
   else if (adNetwork === 'inmobi')
     htmlWebpackPluginConfig = generateInMobiHtmlWebpackPluginConfig('src/index.html', buildOptions);
+  else if (adNetwork === 'remerge') htmlWebpackPluginConfig = generateRemergeHtmlWebpackPluginConfig('src/index.html');
 
   const webpackConfig = merge(
     webpackCommonConfig,
@@ -165,6 +168,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     adNetwork !== 'adikteev' &&
     adNetwork !== 'bigabid' &&
     adNetwork !== 'inmobi' &&
+    adNetwork !== 'remerge' &&
     !(isZipOutput && adNetwork === 'facebook')
   )
     webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
@@ -211,6 +215,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     if (adNetwork === 'adikteev') webpackConfig.output.filename = 'creative.js';
     else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
+    else if (adNetwork === 'remerge') webpackConfig.output.filename = 'script.js';
 
     if (adNetwork === 'liftoff') {
       moduleRules = inlineExceptFontsAssetRules;

@@ -38,7 +38,8 @@ declare const AD_NETWORK:
   | 'smadex'
   | 'adikteev'
   | 'bigabid'
-  | 'inmobi';
+  | 'inmobi'
+  | 'remerge';
 
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 

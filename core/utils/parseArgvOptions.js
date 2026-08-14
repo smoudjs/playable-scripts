@@ -21,7 +21,8 @@ const allowedAdNetworks = [
   'smadex',
   'adikteev',
   'bigabid',
-  'inmobi'
+  'inmobi',
+  'remerge'
 ];
 /** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
@@ -38,7 +39,8 @@ const mraidPartners = [
   'adcolony',
   'adikteev',
   'bigabid',
-  'inmobi'
+  'inmobi',
+  'remerge'
 ];
 
 /** @type {LANGUAGE[]} */
