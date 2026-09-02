@@ -25,7 +25,10 @@ const adNetworkFileNameMap = {
   adikteev: 'ADIKTEEV',
   bigabid: 'BIGABID',
   inmobi: 'INMOBI',
-  remerge: 'REMERGE'
+  remerge: 'REMERGE',
+  tencent: 'TENCENT',
+  youappi: 'YOUAPPI',
+  aarki: 'AARKI'
 };
 
 /**

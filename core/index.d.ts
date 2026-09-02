@@ -89,7 +89,10 @@ export interface CLIOptions {
     | 'adikteev'
     | 'bigabid'
     | 'inmobi'
-    | 'remerge';
+    | 'remerge'
+    | 'tencent'
+    | 'youappi'
+    | 'aarki';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */

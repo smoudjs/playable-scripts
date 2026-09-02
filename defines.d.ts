@@ -39,7 +39,10 @@ declare const AD_NETWORK:
   | 'adikteev'
   | 'bigabid'
   | 'inmobi'
-  | 'remerge';
+  | 'remerge'
+  | 'tencent'
+  | 'youappi'
+  | 'aarki';
 
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 

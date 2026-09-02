@@ -22,7 +22,10 @@ const allowedAdNetworks = [
   'adikteev',
   'bigabid',
   'inmobi',
-  'remerge'
+  'remerge',
+  'tencent',
+  'youappi',
+  'aarki'
 ];
 /** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
@@ -40,7 +43,10 @@ const mraidPartners = [
   'adikteev',
   'bigabid',
   'inmobi',
-  'remerge'
+  'remerge',
+  'tencent',
+  'youappi',
+  'aarki'
 ];
 
 /** @type {LANGUAGE[]} */

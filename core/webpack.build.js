@@ -37,6 +37,7 @@ const zipOutputNetworks = [
   'bigabid',
   'inmobi',
   'remerge',
+  'tencent',
   'snapchat',
   'liftoff'
 ];
