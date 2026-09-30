@@ -25,7 +25,9 @@ const allowedAdNetworks = [
   'remerge',
   'tencent',
   'youappi',
-  'aarki'
+  'digitalturbine',
+  'aarki',
+  'bidease'
 ];
 /** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];
@@ -46,7 +48,9 @@ const mraidPartners = [
   'remerge',
   'tencent',
   'youappi',
-  'aarki'
+  'digitalturbine',
+  'aarki',
+  'bidease'
 ];
 
 /** @type {LANGUAGE[]} */

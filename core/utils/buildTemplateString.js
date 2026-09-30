@@ -28,7 +28,9 @@ const adNetworkFileNameMap = {
   remerge: 'REMERGE',
   tencent: 'TENCENT',
   youappi: 'YOUAPPI',
-  aarki: 'AARKI'
+  digitalturbine: 'DT',
+  aarki: 'AARKI',
+  bidease: 'BIDEASE'
 };
 
 /**

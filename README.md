@@ -184,7 +184,9 @@ playable-scripts build unity
 - `remerge` (REMERGE) - Remerge
 - `tencent` (TENCENT) - Tencent
 - `youappi` (YOUAPPI) - YouAppi
+- `digitalturbine` (DT) - DT Exchange
 - `aarki` (AARKI) - Aarki
+- `bidease` (BIDEASE) - Bidease
 
 #### Supported Protocols
 
@@ -192,7 +194,7 @@ playable-scripts build unity
 - `mraid` - Mobile Rich Media Ad Interface Definitions
 - `dapi` - Display Advertising Programming Interface
 
-Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, Adikteev, Bigabid, inMobi, Remerge, Tencent, YouAppi, Aarki and AdColony networks.
+Note: MRAID protocol is automatically used for ironSource, AppLovin, Unity, Appreciate, Snapchat, Chartboost, MyTarget, Liftoff, Adikteev, Bigabid, inMobi, Remerge, Tencent, YouAppi, DT Exchange, Aarki, Bidease and AdColony networks.
 
 ## Build Configuration (build.json)
 
@@ -384,7 +386,9 @@ const options = {
     remerge: 'REMERGE',
     tencent: 'TENCENT',
     youappi: 'YOUAPPI',
-    aarki: 'AARKI'
+    digitalturbine: 'DT',
+    aarki: 'AARKI',
+    bidease: 'BIDEASE'
   }
 };
 ```

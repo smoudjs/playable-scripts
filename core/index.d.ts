@@ -92,7 +92,9 @@ export interface CLIOptions {
     | 'remerge'
     | 'tencent'
     | 'youappi'
-    | 'aarki';
+    | 'digitalturbine'
+    | 'aarki'
+    | 'bidease';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */

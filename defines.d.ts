@@ -42,7 +42,9 @@ declare const AD_NETWORK:
   | 'remerge'
   | 'tencent'
   | 'youappi'
-  | 'aarki';
+  | 'digitalturbine'
+  | 'aarki'
+  | 'bidease';
 
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 

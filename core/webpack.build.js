@@ -38,6 +38,7 @@ const zipOutputNetworks = [
   'inmobi',
   'remerge',
   'tencent',
+  'bidease',
   'snapchat',
   'liftoff'
 ];
@@ -170,13 +171,14 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     adNetwork !== 'bigabid' &&
     adNetwork !== 'inmobi' &&
     adNetwork !== 'remerge' &&
+    adNetwork !== 'bidease' &&
     !(isZipOutput && adNetwork === 'facebook')
   )
     webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
   if ('dapi' === adProtocol) {
     webpackConfig.plugins.push(new DAPIInjectorPlugin());
   } else if ('mraid' === adProtocol) {
-    if (adNetwork === 'ironsource' || adNetwork == 'unity') {
+    if (adNetwork === 'ironsource' || adNetwork == 'unity' || adNetwork === 'bidease') {
       webpackConfig.plugins.push(new MRAIDInjectorPlugin());
     }
   }
@@ -217,6 +219,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     else if (adNetwork === 'bigabid') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'remerge') webpackConfig.output.filename = 'script.js';
+    else if (adNetwork === 'bidease') webpackConfig.output.filename = 'script.js';
 
     if (adNetwork === 'liftoff') {
       moduleRules = inlineExceptFontsAssetRules;
