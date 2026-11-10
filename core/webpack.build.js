@@ -2,7 +2,6 @@ const { merge } = require('webpack-merge');
 const { webpackCommonConfig } = require('./webpack.common.js');
 const webpack = require('webpack');
 const TerserPlugin = require('terser-webpack-plugin');
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const HtmlInlineScriptPlugin = require('html-inline-script-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
@@ -12,6 +11,7 @@ const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.j
 const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
 const { VungleLegacyRuntimePlugin } = require('./plugins/VungleLegacyRuntimePlugin.js');
 const { ZipPlugin } = require('./plugins/ZipPlugin.js');
+const { CopyFilePlugin } = require('./plugins/CopyFilePlugin.js');
 const { generateAdikteevHtmlWebpackPluginConfig } = require('./utils/generateAdikteevHtmlWebpackPluginConfig.js');
 const { generateBigabidHtmlWebpackPluginConfig } = require('./utils/generateBigabidHtmlWebpackPluginConfig.js');
 const { generateInMobiHtmlWebpackPluginConfig } = require('./utils/generateInMobiHtmlWebpackPluginConfig.js');
@@ -194,15 +194,11 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
       webpackConfig.plugins.push(new VungleLegacyRuntimePlugin());
     } else if (adNetwork === 'tiktok') {
       webpackConfig.plugins.push(
-        new CopyWebpackPlugin({
-          patterns: [{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }]
-        })
+        new CopyFilePlugin([{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }])
       );
     } else if (adNetwork === 'snapchat') {
       webpackConfig.plugins.push(
-        new CopyWebpackPlugin({
-          patterns: [{ from: path.join(__dirname, 'resources', 'snapchat-config.json'), to: 'config.json' }]
-        })
+        new CopyFilePlugin([{ from: path.join(__dirname, 'resources', 'snapchat-config.json'), to: 'config.json' }])
       );
     }
 

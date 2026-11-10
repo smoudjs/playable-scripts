@@ -1,6 +1,6 @@
 {
   "name": "@smoud/playable-scripts",
-  "version": "1.2.15",
+  "version": "1.2.16",
   "description": "Accelerate HTML5 playable ad development and production across different ad networks, with a single tool, which offering both a streamlined CLI and a flexible API.",
   "main": "core/index.js",
   "module": "core/index.js",
@@ -28,7 +28,6 @@
     "@babel/core": "^7.26.0",
     "@babel/preset-env": "^7.26.0",
     "babel-loader": "^9.2.1",
-    "copy-webpack-plugin": "^13.0.0",
     "cross-spawn": "^7.0.3",
     "css-loader": "^7.1.2",
     "esbuild-loader": "^4.2.2",
@@ -42,6 +41,11 @@
     "webpack-dev-server": "^5.1.0",
     "webpack-merge": "^5.10.0",
     "yazl": "^2.5.1"
+  },
+  "overrides": {
+    "sockjs": {
+      "uuid": "^11.1.1"
+    }
   },
   "engines": {
     "node": ">=14.0.0"

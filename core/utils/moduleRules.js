@@ -5,7 +5,7 @@
  */
 const inlineAssetRules = [
   {
-    test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj|skel)$/i,
+    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
     type: 'asset/inline'
   },
   {
@@ -25,7 +25,7 @@ const inlineAssetRules = [
  */
 const fileAssetRules = [
   {
-    test: /\.(mp3|mp4|m4a|ogg|wav|glb|fbx|obj|skel)$/i,
+    test: /\.(mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
     type: 'asset/inline'
   },
   {
@@ -51,7 +51,7 @@ const fileAssetRules = [
  */
 const inlineExceptFontsAssetRules = [
   {
-    test: /\.(gif|png|jpe?g|webp|mp3|mp4|m4a|ogg|wav|glb|fbx|obj|skel)$/i,
+    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
     type: 'asset/inline'
   },
   {
