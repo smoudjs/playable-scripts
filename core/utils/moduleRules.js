@@ -5,8 +5,13 @@
  */
 const inlineAssetRules = [
   {
-    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
+    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|obj|exr)$/i,
     type: 'asset/inline'
+  },
+  {
+    test: /\.(skel|fbx|hdr)$/i,
+    type: 'asset/inline',
+    generator: { dataUrl: { mimetype: 'application/octet-stream' } }
   },
   {
     test: /\.(svg|xml|json|atlas)$/i,
@@ -25,8 +30,13 @@ const inlineAssetRules = [
  */
 const fileAssetRules = [
   {
-    test: /\.(mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
+    test: /\.(mp3|mp4|webm|m4a|ogg|wav|glb|obj|exr)$/i,
     type: 'asset/inline'
+  },
+  {
+    test: /\.(skel|fbx|hdr)$/i,
+    type: 'asset/inline',
+    generator: { dataUrl: { mimetype: 'application/octet-stream' } }
   },
   {
     test: /\.(gif|png|jpe?g|webp)$/i,
@@ -51,8 +61,13 @@ const fileAssetRules = [
  */
 const inlineExceptFontsAssetRules = [
   {
-    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|fbx|obj|skel|hdr|exr)$/i,
+    test: /\.(gif|png|jpe?g|webp|mp3|mp4|webm|m4a|ogg|wav|glb|obj|exr)$/i,
     type: 'asset/inline'
+  },
+  {
+    test: /\.(skel|fbx|hdr)$/i,
+    type: 'asset/inline',
+    generator: { dataUrl: { mimetype: 'application/octet-stream' } }
   },
   {
     test: /\.(svg|xml|json|atlas)$/i,
