@@ -13,7 +13,8 @@ class TikTokInjectorPlugin {
           voidTag: false,
           meta: { plugin: 'html-inline-script-webpack-plugin' },
           attributes: {
-            src: 'https://sf1-ttcdn-tos.pstatp.com/obj/ttfe/union/playable/sdk/index.b5662ec443f458c8a87e.js',
+            // https://ads.tiktok.com/help/article/playable-ads (lowercase path, the capitalized one returns 404)
+            src: 'https://sf16-muse-va.ibytedtos.com/obj/union-fe-nc-i18n/playable/sdk/playable-sdk.js',
             type: 'text/javascript'
           }
         });

@@ -51,7 +51,8 @@ declare const AD_NETWORK:
   | 'youappi'
   | 'digitalturbine'
   | 'aarki'
-  | 'bidease';
+  | 'bidease'
+  | 'revx';
 
 declare const AD_PROTOCOL: 'mraid' | 'dapi' | 'nucleo' | 'none';
 

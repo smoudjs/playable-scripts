@@ -94,7 +94,8 @@ export interface CLIOptions {
     | 'youappi'
     | 'digitalturbine'
     | 'aarki'
-    | 'bidease';
+    | 'bidease'
+    | 'revx';
   /** Development mode flag */
   dev: boolean;
   /** Skip recommended meta tags injection */
@@ -102,8 +103,10 @@ export interface CLIOptions {
   /** Drop console.log, console.warn, and console.info for a production build */
   // TODO: remove it later as this is part of compilation after CLI parse
   //dropConsole: boolean;
-  /** URL of debugger script to inject */
-  debugger?: string;
+  /** Vungle only: build ES5 output for legacy Vungle runtimes */
+  vungleLegacy?: boolean;
+  /** Script to inject: a http(s) URL becomes a `<script src>` tag, a local path is bundled before the main entry */
+  inject?: string;
   /** Template for output filename using pattern {app}_{name}_{version}_{date}_{language}_{network} */
   filename: string;
   /** Application name used in build filename and APP define */
@@ -179,9 +182,9 @@ export declare class DAPIInjectorPlugin implements WebpackPluginInstance {
   apply(compiler: any): void;
 }
 
-/** Plugin for injecting debugger script */
-export declare class DebuggerInjectionPlugin implements WebpackPluginInstance {
-  constructor(debuggerSrc: string);
+/** Plugin for injecting an external script (e.g. a remote debugger) */
+export declare class ScriptInjectorPlugin implements WebpackPluginInstance {
+  constructor(src: string);
   apply(compiler: any): void;
 }
 

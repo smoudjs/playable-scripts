@@ -175,9 +175,15 @@ const possibleOptions = [
     }
   },
   {
-    name: 'debugger',
+    name: 'vungle-legacy',
+    alias: 'vungleLegacy',
+    hasValue: false,
+    description: 'Vungle only: build ES5 output for legacy Vungle runtimes'
+  },
+  {
+    name: 'inject',
     hasValue: true,
-    description: 'URL of debugger script to inject into code'
+    description: 'Script to inject: a http(s) URL adds a <script src> tag, a local path is bundled before the main entry'
   }
 ];
 
@@ -217,6 +223,15 @@ try {
 
 // Re-assigning dropConsole with a correct place
 if (options.dropConsole === false) options.compilation.dropConsole = false;
+
+// If only one store URL is provided, use it for both platforms instead of the default store homepage
+const defaultGooglePlayUrl = possibleOptions.find((e) => e.alias === 'googlePlayUrl').defaultValue;
+const defaultAppStoreUrl = possibleOptions.find((e) => e.alias === 'appStoreUrl').defaultValue;
+if (options.googlePlayUrl === defaultGooglePlayUrl && options.appStoreUrl !== defaultAppStoreUrl) {
+  options.googlePlayUrl = options.appStoreUrl;
+} else if (options.appStoreUrl === defaultAppStoreUrl && options.googlePlayUrl !== defaultGooglePlayUrl) {
+  options.appStoreUrl = options.googlePlayUrl;
+}
 
 console.log(`${name} v${version}`);
 

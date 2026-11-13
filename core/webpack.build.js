@@ -7,6 +7,8 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
 const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
 const { PangleInjectorPlugin } = require('./plugins/PangleInjectorPlugin.js');
+const { TikTokInjectorPlugin } = require('./plugins/TikTokInjectorPlugin.js');
+const { RevxInjectorPlugin } = require('./plugins/RevxInjectorPlugin.js');
 const { MintegralInjectorPlugin } = require('./plugins/MintegralInjectorPlugin.js');
 const { MRAIDInjectorPlugin } = require('./plugins/MRAIDInjectorPlugin.js');
 const { VungleLegacyRuntimePlugin } = require('./plugins/VungleLegacyRuntimePlugin.js');
@@ -24,6 +26,8 @@ const { buildDefines } = require('./utils/buildDefines.js');
 const { buildTemplateString } = require('./utils/buildTemplateString.js');
 const { logOptions } = require('./utils/logOptions.js');
 const { inlineAssetRules, inlineExceptFontsAssetRules } = require('./utils/moduleRules.js');
+const { applyInject } = require('./utils/applyInject.js');
+const { applyVungleLegacy } = require('./utils/applyVungleLegacy.js');
 
 /** @type {AD_NETWORK[]} */
 const zipOutputNetworks = [
@@ -39,6 +43,7 @@ const zipOutputNetworks = [
   'remerge',
   'tencent',
   'bidease',
+  'revx',
   'snapchat',
   'liftoff'
 ];
@@ -172,6 +177,7 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     adNetwork !== 'inmobi' &&
     adNetwork !== 'remerge' &&
     adNetwork !== 'bidease' &&
+    adNetwork !== 'revx' &&
     !(isZipOutput && adNetwork === 'facebook')
   )
     webpackConfig.plugins.push(new HtmlInlineScriptPlugin());
@@ -187,15 +193,22 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     if (adNetwork === 'google') {
       webpackConfig.plugins.push(new ExitAPIInjectorPlugin(buildOptions.orientation));
     } else if (adNetwork === 'pangle') {
-      webpackConfig.plugins.push(new PangleInjectorPlugin());
+      webpackConfig.plugins.push(
+        new PangleInjectorPlugin(),
+        // Pangle (TikTok Ad Network) uses the same config.json as TikTok
+        new CopyFilePlugin([{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }])
+      );
     } else if (adNetwork === 'mintegral') {
       webpackConfig.plugins.push(new MintegralInjectorPlugin());
     } else if (adNetwork === 'vungle') {
       webpackConfig.plugins.push(new VungleLegacyRuntimePlugin());
     } else if (adNetwork === 'tiktok') {
       webpackConfig.plugins.push(
+        new TikTokInjectorPlugin(),
         new CopyFilePlugin([{ from: path.join(__dirname, 'resources', 'tiktok-config.json'), to: 'config.json' }])
       );
+    } else if (adNetwork === 'revx') {
+      webpackConfig.plugins.push(new RevxInjectorPlugin());
     } else if (adNetwork === 'snapchat') {
       webpackConfig.plugins.push(
         new CopyFilePlugin([{ from: path.join(__dirname, 'resources', 'snapchat-config.json'), to: 'config.json' }])
@@ -216,15 +229,22 @@ function makeWebpackBuildConfig(customOptions, customDefines, webpackCustomConfi
     else if (adNetwork === 'inmobi') webpackConfig.output.filename = 'main.js';
     else if (adNetwork === 'remerge') webpackConfig.output.filename = 'script.js';
     else if (adNetwork === 'bidease') webpackConfig.output.filename = 'script.js';
+    else if (adNetwork === 'revx') webpackConfig.output.filename = 'script.js';
 
     if (adNetwork === 'liftoff') {
       moduleRules = inlineExceptFontsAssetRules;
-      webpackConfig.output.publicPath = '';
       webpackConfig.output.assetModuleFilename = '[name].[hash][ext]';
     }
   }
 
   webpackConfig.module.rules.push(...moduleRules);
+
+  applyInject(webpackConfig, buildOptions['inject']);
+
+  if (buildOptions['vungleLegacy']) {
+    if (adNetwork === 'vungle') applyVungleLegacy(webpackConfig);
+    else console.warn(`--vungle-legacy is ignored for the "${adNetwork}" network`);
+  }
 
   return webpackConfig;
 }

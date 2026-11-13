@@ -60,7 +60,9 @@ const webpackConfig = {
   },
   output: {
     filename: 'build.js',
-    path: path.resolve('dist')
+    path: path.resolve('dist'),
+    // Webpack's default 'auto' breaks for inline bundles and blob: URLs - resolve assets relative to the document
+    publicPath: ''
   },
   module: {
     rules: [

@@ -147,7 +147,8 @@ For detailed implementation guidelines, visit our [GitHub repository](https://gi
 | `--orientation`           | Orientation identifier                    | [See Build Configuration](#build-configuration-buildjson) | `--orientation portrait`         |
 | `--skip-recommended-meta` | Skip recommended meta tags injection      | -                                                         | `--skip-recommended-meta`        |
 | `--drop-console`          | Drop console logging on production        | `true`                                                    | `--drop-console false`           |
-| `--debugger`              | URL of debugger script to inject          | -                                                         | `--debugger http://...`          |
+| `--inject`                | Script URL or local file to inject        | -                                                         | `--inject http://...`            |
+| `--vungle-legacy`         | ES5 output for legacy Vungle runtimes     | -                                                         | `--vungle-legacy`                |
 
 #### Target Ad Network
 
@@ -187,6 +188,7 @@ playable-scripts build unity
 - `digitalturbine` (DT) - DT Exchange
 - `aarki` (AARKI) - Aarki
 - `bidease` (BIDEASE) - Bidease
+- `revx` (REVX) - RevX
 
 #### Supported Protocols
 
@@ -352,7 +354,8 @@ const options = {
   appStoreUrl: 'https://www.apple.com/app-store/', // App Store URL
   dev: undefined, // Development mode flag
   skipRecommendedMeta: undefined, // Skip recommended meta tags injection
-  debugger: undefined, // URL of debugger script to inject
+  inject: undefined, // Script to inject: http(s) URL as <script src>, local path bundled before the main entry
+  vungleLegacy: undefined, // Vungle only: build ES5 output for legacy Vungle runtimes
   defines: {}, // Defines options
   compilation: {
     // Compilation options
@@ -388,7 +391,8 @@ const options = {
     youappi: 'YOUAPPI',
     digitalturbine: 'DT',
     aarki: 'AARKI',
-    bidease: 'BIDEASE'
+    bidease: 'BIDEASE',
+    revx: 'REVX'
   }
 };
 ```
@@ -487,13 +491,13 @@ runBuild(null, customOptions);
 The package includes several webpack plugins for ad network integration:
 
 ```javascript
-const { ExitAPIInjectorPlugin, DebuggerInjectionPlugin } = require('@smoud/playable-scripts');
+const { ExitAPIInjectorPlugin, ScriptInjectorPlugin } = require('@smoud/playable-scripts');
 
 // Google Ads ExitAPI integration
 new ExitAPIInjectorPlugin();
 
-// Custom debugger integration
-new DebuggerInjectionPlugin('http://debugger-url');
+// External script integration (e.g. a remote debugger)
+new ScriptInjectorPlugin('http://debugger-url');
 ```
 
 ## Demo Projects

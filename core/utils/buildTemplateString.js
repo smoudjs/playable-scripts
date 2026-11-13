@@ -30,7 +30,8 @@ const adNetworkFileNameMap = {
   youappi: 'YOUAPPI',
   digitalturbine: 'DT',
   aarki: 'AARKI',
-  bidease: 'BIDEASE'
+  bidease: 'BIDEASE',
+  revx: 'REVX'
 };
 
 /**

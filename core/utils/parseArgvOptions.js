@@ -27,7 +27,8 @@ const allowedAdNetworks = [
   'youappi',
   'digitalturbine',
   'aarki',
-  'bidease'
+  'bidease',
+  'revx'
 ];
 /** @type {AD_PROTOCOL[]} List of supported advertising protocols */
 const allowedAdProtocols = ['none', 'mraid', 'dapi'];

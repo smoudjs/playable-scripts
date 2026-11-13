@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WebpackDevServer = require('webpack-dev-server');
 const { webpackCommonConfig } = require('./webpack.common.js');
 const path = require('path');
-const { DebuggerInjectionPlugin } = require('./plugins/DebuggerInjectionPlugin.js');
+const { applyInject } = require('./utils/applyInject.js');
 const { options } = require('./options.js');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { buildDefines } = require('./utils/buildDefines.js');
@@ -61,9 +61,7 @@ function makeWebpackDevConfig(customOptions, customDefines, webpackCustomConfig)
 
   webpackConfig.module.rules.push(...inlineAssetRules);
 
-  if (devOptions['debugger']) {
-    webpackConfig.plugins.push(new DebuggerInjectionPlugin(devOptions['debugger']));
-  }
+  applyInject(webpackConfig, devOptions['inject']);
 
   return webpackConfig;
 }

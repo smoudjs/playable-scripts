@@ -3,7 +3,7 @@ const { parseArgvOptions } = require('./utils/parseArgvOptions.js');
 const { mergeOptions } = require('./utils/mergeOptions.js');
 const { options } = require('./options.js');
 const { DAPIInjectorPlugin } = require('./plugins/DAPIInjectorPlugin.js');
-const { DebuggerInjectionPlugin } = require('./plugins/DebuggerInjectionPlugin.js');
+const { ScriptInjectorPlugin } = require('./plugins/ScriptInjectorPlugin.js');
 const { ExitAPIInjectorPlugin } = require('./plugins/ExitAPIInjectorPlugin.js');
 const { runBuild, makeWebpackBuildConfig } = require('./webpack.build.js');
 const { runDev, makeWebpackDevConfig } = require('./webpack.dev.js');
@@ -22,4 +22,4 @@ exports.runBuild = runBuild;
 
 exports.DAPIInjectorPlugin = DAPIInjectorPlugin;
 exports.ExitAPIInjectorPlugin = ExitAPIInjectorPlugin;
-exports.DebuggerInjectionPlugin = DebuggerInjectionPlugin;
+exports.ScriptInjectorPlugin = ScriptInjectorPlugin;
